@@ -44,6 +44,7 @@ public class SongAdapter
     /* The interface that receives onClick messages. */
     public interface PlaylistAdapterOnClickHandler {
         void onClick(long id);
+        
     }
 
 
