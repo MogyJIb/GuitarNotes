@@ -40,6 +40,32 @@ public final class SongContract {
         public static final String COLUMN_TEXT = "text";
 
 
+
+        /* The columns of data that we are interested in displaying within our MainActivity's list of
+    weather data. */
+        public static final String[] MAIN_SONGS_PROJECTION = {
+                COLUMN_UUID,
+                COLUMN_NAME,
+                COLUMN_AUTHOR
+        };
+
+        public static final String[] DETAIL_SONGS_PROJECTION = {
+                COLUMN_UUID,
+                COLUMN_NAME,
+                COLUMN_AUTHOR,
+                COLUMN_TEXT
+        };
+
+        /* We store the indices of the values in the array of Strings above to more quickly be able to
+        access the data from our query. If the order of the Strings above changes, these indices
+        must be adjusted to match the order of the Strings. */
+        public static final int INDEX_SONG_UUID = 0;
+        public static final int INDEX_SONG_NAME = 1;
+        public static final int INDEX_SONG_AUTHOR = 2;
+        public static final int INDEX_SONG_TEXT = 3;
+
+        public static final String SORT_ODER = "name";
+
         /*
 
         The above table structure looks something like the sample table below.

@@ -14,6 +14,11 @@ public final class Song {
     private String mAuthor;
     private StringBuilder mText;
 
+    public Song() {
+        mId = UUID.randomUUID();
+        mText = new StringBuilder();
+    }
+
     public Song(String name, String author, String text) {
         this();
 
@@ -22,9 +27,15 @@ public final class Song {
         mText.append(text);
     }
 
-   public Song() {
-        mId = UUID.randomUUID();
-        mText = new StringBuilder();
+    private Song(UUID id, String name, String author, String text) {
+        mId = id;
+        mName = name;
+        mAuthor = author;
+        mText = new StringBuilder(text);
+    }
+
+    public static Song getSong(UUID id, String name, String author, String text){
+        return new Song(id,name,author,text);
     }
 
     public UUID getId() {

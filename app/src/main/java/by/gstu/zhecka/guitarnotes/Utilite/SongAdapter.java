@@ -5,6 +5,7 @@ package by.gstu.zhecka.guitarnotes.Utilite;
  */
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -13,9 +14,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import by.gstu.zhecka.guitarnotes.R;
-import by.gstu.zhecka.guitarnotes.fragment.SongListFragment;
+import by.gstu.zhecka.guitarnotes.activity.DetailSongActivity;
+
+import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.COLUMN_UUID;
+import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.INDEX_SONG_AUTHOR;
+import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.INDEX_SONG_NAME;
+import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.INDEX_SONG_UUID;
 
 
 public class SongAdapter
@@ -44,7 +51,6 @@ public class SongAdapter
     /* The interface that receives onClick messages. */
     public interface PlaylistAdapterOnClickHandler {
         void onClick(long id);
-        
     }
 
 
@@ -122,8 +128,8 @@ public class SongAdapter
         }
 
         public void bindSong(Cursor cursor) {
-            mTitleTextView.setText(cursor.getString(SongListFragment.INDEX_SONG_NAME) +
-                                cursor.getString(SongListFragment.INDEX_SONG_AUTHOR));
+            mTitleTextView.setText(cursor.getString(INDEX_SONG_NAME) +
+                                cursor.getString(INDEX_SONG_AUTHOR));
         }
 
         /* This gets called by the child views during a click. We fetch the ID of song that has been
@@ -133,7 +139,12 @@ public class SongAdapter
         public void onClick(View v) {
             int clickedPosition = getAdapterPosition();
             mCursor.moveToPosition(clickedPosition);
+            Toast.makeText(mContext, mCursor.getString(INDEX_SONG_NAME) +
+                    " clicked!", Toast.LENGTH_SHORT).show();
 
+            Intent intent = new Intent(mContext, DetailSongActivity.class);
+            intent.putExtra(COLUMN_UUID,mCursor.getString(INDEX_SONG_UUID));
+            mContext.startActivity(intent);
         }
     }
 }

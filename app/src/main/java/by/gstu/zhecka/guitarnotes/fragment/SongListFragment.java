@@ -10,7 +10,6 @@ import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,11 +19,8 @@ import by.gstu.zhecka.guitarnotes.Utilite.FakeDataUtils;
 import by.gstu.zhecka.guitarnotes.Utilite.SongAdapter;
 import by.gstu.zhecka.guitarnotes.database.SongContract;
 
-import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.COLUMN_AUTHOR;
-import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.COLUMN_NAME;
-import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.COLUMN_TEXT;
-import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.COLUMN_UUID;
-import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry._ID;
+import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.MAIN_SONGS_PROJECTION;
+import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.SORT_ODER;
 
 /**
  * Created by Zhecka on 8/23/2017.
@@ -39,25 +35,6 @@ public final class SongListFragment extends Fragment implements  LoaderManager.L
     /* RecyclerView to displaying our songs and adapter to it for linking songs with the Views*/
     private RecyclerView mRecyclerView;
     private SongAdapter mAdapter;
-
-
-    /* The columns of data that we are interested in displaying within our MainActivity's list of
-    weather data. */
-    public static final String[] MAIN_SONGS_PROJECTION = {
-            COLUMN_UUID,
-            COLUMN_NAME,
-            COLUMN_AUTHOR
-    };
-
-
-    /* We store the indices of the values in the array of Strings above to more quickly be able to
-    access the data from our query. If the order of the Strings above changes, these indices
-    must be adjusted to match the order of the Strings. */
-    public static final int INDEX_SONG_UUID = 0;
-    public static final int INDEX_SONG_NAME = 1;
-    public static final int INDEX_SONG_AUTHOR = 2;
-
-    public static final String SORT_ODER = "name";
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -90,6 +67,12 @@ public final class SongListFragment extends Fragment implements  LoaderManager.L
         getLoaderManager().initLoader(SONGS_LOADER_ID, null, this);
 
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getLoaderManager().initLoader(SONGS_LOADER_ID, null, this);
     }
 
     @Override

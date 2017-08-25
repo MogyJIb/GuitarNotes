@@ -16,6 +16,8 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".activity.DetailSongActivity"/>
+
         <provider
             android:authorities="by.gstu.zhecka.guitarnotes"
             android:name="by.gstu.zhecka.guitarnotes.database.SongProvider"
