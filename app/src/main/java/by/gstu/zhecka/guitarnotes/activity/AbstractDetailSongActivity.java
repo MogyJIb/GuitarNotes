@@ -3,8 +3,8 @@ package by.gstu.zhecka.guitarnotes.activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AppCompatActivity;
 
 import by.gstu.zhecka.guitarnotes.fragment.DetailSongFragment;
 import by.gstu.zhecka.guitarnotes.model.Song;
@@ -15,7 +15,7 @@ import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.SONG_TA
  * Created by Zhecka on 8/27/2017.
  */
 
-public abstract class AbstractDetailSongActivity extends FragmentActivity {
+public abstract class AbstractDetailSongActivity extends AppCompatActivity {
 
     protected DetailSongFragment mDetailSongFragment;
     protected Song mSong;

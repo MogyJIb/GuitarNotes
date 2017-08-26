@@ -26,7 +26,7 @@ public class FakeDataUtils {
         List<ContentValues> fakeValues = new ArrayList<ContentValues>();
         ArrayList<Song> songs = new ArrayList<>();
 
-        for(int i=0; i<50; i++){
+        for(int i=0; i<100; i++){
             songs.add(new Song("Name "+i,"Author "+i,"text"));
         }
 

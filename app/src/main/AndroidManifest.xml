@@ -14,10 +14,13 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
 
-        <activity android:name=".activity.DetailSongActivity"/>
-        <activity android:name=".activity.EditSongActivity"/>
+        <activity android:name=".activity.DetailSongActivity"
+                  android:parentActivityName=".activity.GuitarActivity"/>
+        <activity android:name=".activity.EditSongActivity"
+                  android:parentActivityName=".activity.GuitarActivity"/>
 
         <provider
             android:authorities="by.gstu.zhecka.guitarnotes"
