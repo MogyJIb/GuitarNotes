@@ -16,13 +16,20 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.UUID;
+
 import by.gstu.zhecka.guitarnotes.R;
 import by.gstu.zhecka.guitarnotes.activity.DetailSongActivity;
+import by.gstu.zhecka.guitarnotes.model.Song;
 
 import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.COLUMN_UUID;
+import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.CONTENT_URI;
+import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.DETAIL_SONGS_PROJECTION;
 import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.INDEX_SONG_AUTHOR;
 import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.INDEX_SONG_NAME;
 import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.INDEX_SONG_UUID;
+import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.SELECTION_UUID;
+import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.SONG_TAG;
 
 
 public class SongAdapter
@@ -143,8 +150,24 @@ public class SongAdapter
                     " clicked!", Toast.LENGTH_SHORT).show();
 
             Intent intent = new Intent(mContext, DetailSongActivity.class);
-            intent.putExtra(COLUMN_UUID,mCursor.getString(INDEX_SONG_UUID));
+
+            UUID uuid = UUID.fromString(mCursor.getString(INDEX_SONG_UUID));
+            Song song = getSongFromDatabase(uuid);
+
+            intent.putExtra(SONG_TAG,song);
             mContext.startActivity(intent);
+        }
+
+        private Song getSongFromDatabase(UUID songId) {
+            if(songId == null)
+                return null;
+
+            String selection = SELECTION_UUID;
+            String[] selectionArgs = {songId.toString()};
+            Cursor cursor = mContext.getContentResolver()
+                    .query(CONTENT_URI, DETAIL_SONGS_PROJECTION, selection, selectionArgs, null);
+
+            return MyConvertUtility.getSongFromCursor(cursor);
         }
     }
 }

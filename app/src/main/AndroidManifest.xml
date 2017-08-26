@@ -17,7 +17,7 @@
         </activity>
 
         <activity android:name=".activity.DetailSongActivity"/>
-        <activity android:name=".activity.AddSongActivity"/>
+        <activity android:name=".activity.EditSongActivity"/>
 
         <provider
             android:authorities="by.gstu.zhecka.guitarnotes"

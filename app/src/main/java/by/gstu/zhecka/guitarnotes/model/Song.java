@@ -28,15 +28,15 @@ public final class Song implements Serializable {
         mText.append(text);
     }
 
-    private Song(UUID id, String name, String author, String text) {
+    public Song(UUID id, String name, String author, String text) {
         mId = id;
         mName = name;
         mAuthor = author;
         mText = new StringBuilder(text);
     }
 
-    public static Song getSong(UUID id, String name, String author, String text){
-        return new Song(id,name,author,text);
+    public static Song newInstance(Song song){
+        return new Song(song.getId(),song.getName(),song.getAuthor(),song.getText());
     }
 
     public UUID getId() {

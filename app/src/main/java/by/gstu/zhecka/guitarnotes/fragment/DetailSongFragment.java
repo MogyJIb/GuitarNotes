@@ -21,6 +21,7 @@ import by.gstu.zhecka.guitarnotes.model.Song;
 import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.COLUMN_UUID;
 import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.CONTENT_URI;
 import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.DETAIL_SONGS_PROJECTION;
+import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.SONG_TAG;
 
 
 /**
@@ -29,7 +30,7 @@ import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.DETAIL_
 
 public class DetailSongFragment extends Fragment {
 
-    public static final String SONG_TAG = "song";
+
 
     private Song mSong;
 
@@ -88,9 +89,12 @@ public class DetailSongFragment extends Fragment {
 
     private boolean updateTheSongInform() {
         if (isTheFieldValid()) {
+
+            mSong = new Song();
             mSong.setName(mSongNameTv.getText().toString());
             mSong.setAuthor(mSongAuthorTv.getText().toString());
             mSong.setText(mSongTextTv.getText().toString());
+
 
             return true;
         } else {

@@ -17,16 +17,7 @@ import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.CONTENT
 
 public class FakeDataUtils {
 
-    /* Creates a single ContentValues object with random data */
-    public static ContentValues createOneItemDataToContentValues(Song song) {
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(COLUMN_NAME, song.getName());
-        contentValues.put(COLUMN_UUID, song.getId().toString());
-        contentValues.put(COLUMN_AUTHOR,song.getAuthor());
-        contentValues.put(COLUMN_TEXT,song.getText());
 
-        return contentValues;
-    }
 
 
     public static void insertFakeData(Context context){
@@ -40,7 +31,7 @@ public class FakeDataUtils {
         }
 
         for(int i=0; i<songs.size(); i++){
-            fakeValues.add(createOneItemDataToContentValues(songs.get(i)));
+            fakeValues.add(MyConvertUtility.createOneItemDataToContentValues(songs.get(i)));
         }
 
 

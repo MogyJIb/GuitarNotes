@@ -210,13 +210,8 @@ public final class SongProvider
             /* Handle the single item case, recognized by the ID included in the URI path */
             case CODE_SONGS:
 
-
-                /* Get the task ID from the URI path */
-                String id = uri.getPathSegments().get(1);
-
-
                 /* Use selections/selectionArgs to filter for this ID */
-                songsDeleted = db.delete(TABLE_NAME, "_id=?", new String[]{id});
+                songsDeleted = db.delete(TABLE_NAME, selection, selectionArgs);
                 break;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);

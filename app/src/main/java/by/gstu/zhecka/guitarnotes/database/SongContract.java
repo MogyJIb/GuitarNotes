@@ -66,6 +66,12 @@ public final class SongContract {
 
         public static final String SORT_ODER = "name";
 
+
+        public static final String SELECTION_UUID = COLUMN_UUID + "=?";
+
+        public static final String SONG_TAG = "song";
+        public static final String UUID_TAG = "song";
+
         /*
 
         The above table structure looks something like the sample table below.
