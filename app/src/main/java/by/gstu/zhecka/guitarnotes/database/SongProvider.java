@@ -231,7 +231,35 @@ public final class SongProvider
 
     @Override
     public int update(@NonNull Uri uri, ContentValues values, String selection, String[] selectionArgs) {
-        throw new RuntimeException("Not implementing update!");
+        final SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+
+        /* Keep track of the number of deleted tasks */
+        int songsUpdated;
+
+
+        /* [Hint] Use selections to delete an item by its row ID */
+        switch (sUriMatcher.match(uri)) {
+
+            /* Handle the single item case, recognized by the ID included in the URI path */
+            case CODE_SONGS:
+
+                /* Use selections/selectionArgs to filter for this ID */
+                songsUpdated = db.update(TABLE_NAME,values,selection,selectionArgs);
+                break;
+            default:
+                throw new UnsupportedOperationException("Unknown uri: " + uri);
+        }
+        if (songsUpdated != 0) {
+
+
+            /* A song was deleted, set notification */
+            getContext().getContentResolver().notifyChange(uri, null);
+        }
+
+
+        /* Return the number of songs deleted */
+        return songsUpdated;
     }
 
 

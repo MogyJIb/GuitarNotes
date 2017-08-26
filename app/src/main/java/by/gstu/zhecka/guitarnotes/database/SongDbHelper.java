@@ -21,13 +21,13 @@ public final class SongDbHelper extends SQLiteOpenHelper {
 
     /* Name and version of our database */
     public static final String DATABASE_NAME = "songsDB.db";
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 6;
 
 
     /* Create tasks table (careful to follow SQL formatting rules) */
     private static final String SQL_CREATE_SONGS_TABLE =
             "CREATE TABLE " + TABLE_NAME         + " ("                                   +
-                    COLUMN_UUID     + " STRING NOT NULL, "                  +
+                    COLUMN_UUID     + " STRING NOT NULL , "                  +
                     COLUMN_NAME   + " STRING NOT NULL, "                   +
                     COLUMN_AUTHOR   + " STRING NOT NULL, "                   +
                     COLUMN_TEXT   + " STRING NOT NULL, "                   +

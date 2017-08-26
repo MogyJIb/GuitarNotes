@@ -1,18 +1,14 @@
 package by.gstu.zhecka.guitarnotes.activity;
 
 import android.app.DialogFragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
 import android.view.View;
 
 import by.gstu.zhecka.guitarnotes.R;
 import by.gstu.zhecka.guitarnotes.fragment.DeleteDialogFragment;
-import by.gstu.zhecka.guitarnotes.fragment.DetailSongFragment;
-import by.gstu.zhecka.guitarnotes.model.Song;
 
 import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.SONG_TAG;
 
@@ -20,9 +16,7 @@ import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.SONG_TA
  * Created by Zhecka on 8/25/2017.
  */
 
-public class DetailSongActivity extends FragmentActivity {
-
-    private Song mSong;
+public class DetailSongActivity extends AbstractDetailSongActivity {
     private FloatingActionButton mDeleteSongActionButton;
     private FloatingActionButton mEditSongActionButton;
 
@@ -49,22 +43,21 @@ public class DetailSongActivity extends FragmentActivity {
         mEditSongActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(view.getContext(),EditSongActivity.class);
+                intent.putExtra(SONG_TAG,mSong);
+                view.getContext().startActivity(intent);
+                finish();
             }
         });
+    }
 
+    @Override
+    protected int getContainLayoutId() {
+        return R.id.detail_song_activity;
+    }
 
-        FragmentManager fm = getSupportFragmentManager();
-        Fragment fragment = fm.findFragmentById(R.id.detail_song_activity);
-
-
-        if (fragment == null) {
-            mSong = (Song) getIntent().getSerializableExtra(SONG_TAG);
-            fragment = DetailSongFragment.newInstance(mSong);
-
-            fm.beginTransaction()
-                    .add(R.id.detail_song_activity, fragment)
-                    .commit();
-        }
+    @Override
+    protected boolean isFocusable() {
+        return false;
     }
 }

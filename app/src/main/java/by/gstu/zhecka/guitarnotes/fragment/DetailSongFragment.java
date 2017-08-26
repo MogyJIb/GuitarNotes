@@ -1,26 +1,17 @@
 package by.gstu.zhecka.guitarnotes.fragment;
 
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.UUID;
-
 import by.gstu.zhecka.guitarnotes.R;
-import by.gstu.zhecka.guitarnotes.utilite.MyConvertUtility;
 import by.gstu.zhecka.guitarnotes.model.Song;
 
-import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.COLUMN_UUID;
-import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.CONTENT_URI;
-import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.DETAIL_SONGS_PROJECTION;
 import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.SONG_TAG;
 
 
@@ -30,7 +21,7 @@ import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.SONG_TA
 
 public class DetailSongFragment extends Fragment {
 
-
+    public final static String IS_FOCUSEBLE_TAG = "isFocusable";
 
     private Song mSong;
 
@@ -38,10 +29,12 @@ public class DetailSongFragment extends Fragment {
     private TextView mSongAuthorTv;
     private TextView mSongTextTv;
 
+    private boolean mIsFocusable;
 
-    public static DetailSongFragment newInstance(Song song) {
+    public static DetailSongFragment newInstance(Song song, boolean isFocusable) {
         Bundle args = new Bundle();
         args.putSerializable(SONG_TAG,song);
+        args.putBoolean(IS_FOCUSEBLE_TAG,isFocusable);
         DetailSongFragment fragment = new DetailSongFragment();
         fragment.setArguments(args);
         return fragment;
@@ -54,6 +47,7 @@ public class DetailSongFragment extends Fragment {
         Bundle bundle = getArguments();
         if(bundle!=null) {
             mSong = (Song) getArguments().getSerializable(SONG_TAG);
+            mIsFocusable = getArguments().getBoolean(IS_FOCUSEBLE_TAG);
         }
     }
 
@@ -66,6 +60,7 @@ public class DetailSongFragment extends Fragment {
 
         updateTheFields();
 
+        setFocusable(mIsFocusable);
 
         return view;
     }
@@ -82,7 +77,8 @@ public class DetailSongFragment extends Fragment {
         if(mSong==null)
             return;
 
-        mSongTextTv.setText(mSong.getText());
+        mSongTextTv.setText(mSong.getText()+"\n"+
+                                mSong.getId());
         mSongNameTv.setText(mSong.getName());
         mSongAuthorTv.setText(mSong.getAuthor());
     }
@@ -90,7 +86,9 @@ public class DetailSongFragment extends Fragment {
     private boolean updateTheSongInform() {
         if (isTheFieldValid()) {
 
-            mSong = new Song();
+            if(mSong == null)
+                mSong = new Song();
+
             mSong.setName(mSongNameTv.getText().toString());
             mSong.setAuthor(mSongAuthorTv.getText().toString());
             mSong.setText(mSongTextTv.getText().toString());
@@ -120,5 +118,14 @@ public class DetailSongFragment extends Fragment {
             return false;
 
         return true;
+    }
+
+    public void setFocusable(boolean isFocusable){
+        if(mSong== null)
+            return;
+
+        mSongNameTv.setFocusable(isFocusable);
+        mSongTextTv.setFocusable(isFocusable);
+        mSongAuthorTv.setFocusable(isFocusable);
     }
 }

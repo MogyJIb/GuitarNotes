@@ -4,31 +4,21 @@ import android.content.ContentValues;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.widget.Toast;
 
-import java.util.UUID;
-
 import by.gstu.zhecka.guitarnotes.R;
-import by.gstu.zhecka.guitarnotes.database.SongContract;
-import by.gstu.zhecka.guitarnotes.fragment.DetailSongFragment;
 import by.gstu.zhecka.guitarnotes.model.Song;
 import by.gstu.zhecka.guitarnotes.utilite.MyConvertUtility;
 
-import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.COLUMN_UUID;
-import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.SONG_TAG;
+import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.CONTENT_URI;
+import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.SELECTION_UUID;
 
 /**
  * Created by Zhecka on 8/26/2017.
  */
 
-public class EditSongActivity extends FragmentActivity {
-
-    private Song mSong;
-    private DetailSongFragment mDetailSongFragment;
+public class EditSongActivity extends AbstractDetailSongActivity {
 
     private FloatingActionButton mSaveSongActionButton;
 
@@ -47,28 +37,27 @@ public class EditSongActivity extends FragmentActivity {
                     ContentValues contentValues = MyConvertUtility.
                             createOneItemDataToContentValues(song);
 
-                    getContentResolver().insert(SongContract.SongEntry.CONTENT_URI, contentValues);
+                    String[] selectionArgs = {song.getId().toString()};
+                    int songUpdated = getContentResolver().update(CONTENT_URI,contentValues, SELECTION_UUID,selectionArgs);
+
+                    if(songUpdated == 0)
+                        getContentResolver().insert(CONTENT_URI, contentValues);
 
                     Toast.makeText(view.getContext(), "The operation was complete successfully!", Toast.LENGTH_LONG).show();
                     finish();
                 }
             }
         });
+    }
 
-        FragmentManager fm = getSupportFragmentManager();
-        Fragment fragment = fm.findFragmentById(R.id.edit_song_activity);
+    @Override
+    protected int getContainLayoutId() {
+        return R.id.edit_song_activity;
+    }
 
-
-        if (fragment == null) {
-
-            mSong = (Song) getIntent().getSerializableExtra(SONG_TAG);
-            fragment = DetailSongFragment.newInstance(mSong);
-            mDetailSongFragment = (DetailSongFragment) fragment;
-
-            fm.beginTransaction()
-                    .add(R.id.edit_song_activity, fragment)
-                    .commit();
-        }
+    @Override
+    protected boolean isFocusable() {
+        return true;
     }
 
 
