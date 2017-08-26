@@ -1,12 +1,13 @@
 package by.gstu.zhecka.guitarnotes.model;
 
+import java.io.Serializable;
 import java.util.UUID;
 
 /**
  * Created by Zhecka on 8/23/2017.
  */
 
-public final class Song {
+public final class Song implements Serializable {
 
     private UUID mId;
 
@@ -68,6 +69,11 @@ public final class Song {
 
     public void appendText(String text){
         mText.append(text);
+    }
+
+    public void setText(String text) {
+        clearText();
+        appendText(text);
     }
 
     public String getTittle(){

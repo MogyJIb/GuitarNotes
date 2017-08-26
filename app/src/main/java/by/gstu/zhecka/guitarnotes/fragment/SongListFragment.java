@@ -1,9 +1,11 @@
 package by.gstu.zhecka.guitarnotes.fragment;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
@@ -15,10 +17,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import by.gstu.zhecka.guitarnotes.R;
-import by.gstu.zhecka.guitarnotes.Utilite.FakeDataUtils;
-import by.gstu.zhecka.guitarnotes.Utilite.SongAdapter;
+import by.gstu.zhecka.guitarnotes.activity.AddSongActivity;
+import by.gstu.zhecka.guitarnotes.activity.DetailSongActivity;
+import by.gstu.zhecka.guitarnotes.utilite.FakeDataUtils;
+import by.gstu.zhecka.guitarnotes.utilite.SongAdapter;
 import by.gstu.zhecka.guitarnotes.database.SongContract;
 
+import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.COLUMN_UUID;
+import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.INDEX_SONG_UUID;
 import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.MAIN_SONGS_PROJECTION;
 import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.SORT_ODER;
 
@@ -35,6 +41,9 @@ public final class SongListFragment extends Fragment implements  LoaderManager.L
     /* RecyclerView to displaying our songs and adapter to it for linking songs with the Views*/
     private RecyclerView mRecyclerView;
     private SongAdapter mAdapter;
+
+
+    private FloatingActionButton mAddSongActionButton;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -60,6 +69,15 @@ public final class SongListFragment extends Fragment implements  LoaderManager.L
         mAdapter = new SongAdapter(getContext(),null);
         mRecyclerView.setAdapter(mAdapter);
 
+
+        mAddSongActionButton = (FloatingActionButton)view.findViewById(R.id.fb_add_new_song);
+        mAddSongActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), AddSongActivity.class);
+                getContext().startActivity(intent);
+            }
+        });
 
         /* Ensures a loader is initialized and active. If the loader doesn't already exist, one is
          created and (if the activity/fragment is currently started) starts the loader. Otherwise

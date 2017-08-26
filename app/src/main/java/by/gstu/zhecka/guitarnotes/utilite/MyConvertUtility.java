@@ -1,10 +1,9 @@
-package by.gstu.zhecka.guitarnotes.Utilite;
+package by.gstu.zhecka.guitarnotes.utilite;
 
 import android.database.Cursor;
 
 import java.util.UUID;
 
-import by.gstu.zhecka.guitarnotes.database.SongContract;
 import by.gstu.zhecka.guitarnotes.model.Song;
 
 import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.INDEX_SONG_AUTHOR;

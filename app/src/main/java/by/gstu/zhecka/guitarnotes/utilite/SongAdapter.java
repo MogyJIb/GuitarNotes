@@ -1,4 +1,4 @@
-package by.gstu.zhecka.guitarnotes.Utilite;
+package by.gstu.zhecka.guitarnotes.utilite;
 
 /**
  * Created by Zhecka on 8/24/2017.
