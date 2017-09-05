@@ -38,6 +38,9 @@ public final class SongContract {
         public static final String COLUMN_NAME = "name";
         public static final String COLUMN_AUTHOR = "author";
         public static final String COLUMN_TEXT = "text";
+        public static final String COLUMN_DETAIL = "detail";
+
+
 
 
 
@@ -53,7 +56,8 @@ public final class SongContract {
                 COLUMN_UUID,
                 COLUMN_NAME,
                 COLUMN_AUTHOR,
-                COLUMN_TEXT
+                COLUMN_TEXT,
+                COLUMN_DETAIL
         };
 
         /* We store the indices of the values in the array of Strings above to more quickly be able to
@@ -63,14 +67,15 @@ public final class SongContract {
         public static final int INDEX_SONG_NAME = 1;
         public static final int INDEX_SONG_AUTHOR = 2;
         public static final int INDEX_SONG_TEXT = 3;
+        public static final int INDEX_SONG_DETAIL = 4;
 
-        public static final String SORT_ODER = "name";
+        public static final String SORT_ODER_BY_NAME = "name";
 
 
         public static final String SELECTION_UUID = COLUMN_UUID + "=?";
 
         public static final String SONG_TAG = "song";
-        public static final String UUID_TAG = "song";
+        public static final String UUID_TAG = "uuid";
 
         /*
 

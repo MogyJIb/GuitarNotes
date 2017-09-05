@@ -1,6 +1,8 @@
 package by.gstu.zhecka.guitarnotes.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -15,9 +17,13 @@ public final class Song implements Serializable {
     private String mAuthor;
     private StringBuilder mText;
 
+    private SongDetail mSongDetail;
+
+
     public Song() {
         mId = UUID.randomUUID();
         mText = new StringBuilder();
+        mSongDetail = new SongDetail();
     }
 
     public Song(String name, String author, String text) {
@@ -28,15 +34,20 @@ public final class Song implements Serializable {
         mText.append(text);
     }
 
-    public Song(UUID id, String name, String author, String text) {
+    public Song(UUID id, String name, String author, String text,SongDetail songDetail) {
         mId = id;
         mName = name;
         mAuthor = author;
         mText = new StringBuilder(text);
+        mSongDetail = songDetail;
     }
 
     public static Song newInstance(Song song){
-        return new Song(song.getId(),song.getName(),song.getAuthor(),song.getText());
+        return new Song(song.getId(),
+                song.getName(),
+                song.getAuthor(),
+                song.getText(),
+                song.getSongDetail());
     }
 
     public UUID getId() {
@@ -78,6 +89,14 @@ public final class Song implements Serializable {
 
     public String getTittle(){
         return getAuthor()+" - "+getName();
+    }
+
+    public SongDetail getSongDetail() {
+        return mSongDetail;
+    }
+
+    public void setSongDetail(SongDetail songDetail) {
+        mSongDetail = songDetail;
     }
 
     @Override

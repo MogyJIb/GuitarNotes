@@ -23,7 +23,7 @@ import by.gstu.zhecka.guitarnotes.utilite.SongAdapter;
 import by.gstu.zhecka.guitarnotes.database.SongContract;
 
 import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.MAIN_SONGS_PROJECTION;
-import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.SORT_ODER;
+import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.SORT_ODER_BY_NAME;
 
 /**
  * Created by Zhecka on 8/23/2017.
@@ -103,7 +103,7 @@ public final class SongListFragment extends Fragment implements  LoaderManager.L
                         MAIN_SONGS_PROJECTION,
                         null,
                         null,
-                        SORT_ODER);
+                        SORT_ODER_BY_NAME);
             default:
                 throw new RuntimeException("Loader Not Implemented: " + loaderId);
         }

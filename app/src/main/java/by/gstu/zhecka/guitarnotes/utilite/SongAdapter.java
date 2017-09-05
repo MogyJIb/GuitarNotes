@@ -22,7 +22,6 @@ import by.gstu.zhecka.guitarnotes.R;
 import by.gstu.zhecka.guitarnotes.activity.DetailSongActivity;
 import by.gstu.zhecka.guitarnotes.model.Song;
 
-import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.COLUMN_UUID;
 import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.CONTENT_URI;
 import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.DETAIL_SONGS_PROJECTION;
 import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.INDEX_SONG_AUTHOR;
@@ -167,7 +166,7 @@ public class SongAdapter
             Cursor cursor = mContext.getContentResolver()
                     .query(CONTENT_URI, DETAIL_SONGS_PROJECTION, selection, selectionArgs, null);
 
-            return MyConvertUtility.getSongFromCursor(cursor);
+            return MySongConvertUtility.getSongFromCursor(cursor);
         }
     }
 }

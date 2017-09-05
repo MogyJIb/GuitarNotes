@@ -6,7 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import by.gstu.zhecka.guitarnotes.R;
@@ -21,20 +21,23 @@ import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.SONG_TA
 
 public class DetailSongFragment extends Fragment {
 
-    public final static String IS_FOCUSEBLE_TAG = "isFocusable";
+    public final static String IS_FOCUSABLE_TAG = "isFocusable";
+    private boolean mIsFocusable;
 
     private Song mSong;
 
-    private TextView mSongNameTv;
-    private TextView mSongAuthorTv;
-    private TextView mSongTextTv;
+    private EditText mSongNameTv;
+    private EditText mSongAuthorTv;
+    private EditText mSongTextTv;
 
-    private boolean mIsFocusable;
+    private EditText mSongAccordTv;
+
+
 
     public static DetailSongFragment newInstance(Song song, boolean isFocusable) {
         Bundle args = new Bundle();
         args.putSerializable(SONG_TAG,song);
-        args.putBoolean(IS_FOCUSEBLE_TAG,isFocusable);
+        args.putBoolean(IS_FOCUSABLE_TAG,isFocusable);
         DetailSongFragment fragment = new DetailSongFragment();
         fragment.setArguments(args);
         return fragment;
@@ -47,7 +50,7 @@ public class DetailSongFragment extends Fragment {
         Bundle bundle = getArguments();
         if(bundle!=null) {
             mSong = (Song) getArguments().getSerializable(SONG_TAG);
-            mIsFocusable = getArguments().getBoolean(IS_FOCUSEBLE_TAG);
+            mIsFocusable = getArguments().getBoolean(IS_FOCUSABLE_TAG);
         }
     }
 
@@ -67,10 +70,10 @@ public class DetailSongFragment extends Fragment {
 
 
     private void initializeTheViews(View parentView){
+        mSongNameTv = (EditText) parentView.findViewById(R.id.tv_song_name);
+        mSongAuthorTv = (EditText) parentView.findViewById(R.id.tv_song_author);
+        mSongTextTv = (EditText) parentView.findViewById(R.id.tv_song_text);
 
-        mSongNameTv = (TextView) parentView.findViewById(R.id.tv_song_name);
-        mSongAuthorTv = (TextView) parentView.findViewById(R.id.tv_song_author);
-        mSongTextTv = (TextView) parentView.findViewById(R.id.tv_song_text);
     }
 
     private void updateTheFields(){

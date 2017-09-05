@@ -9,7 +9,7 @@ import android.widget.Toast;
 
 import by.gstu.zhecka.guitarnotes.R;
 import by.gstu.zhecka.guitarnotes.model.Song;
-import by.gstu.zhecka.guitarnotes.utilite.MyConvertUtility;
+import by.gstu.zhecka.guitarnotes.utilite.MySongConvertUtility;
 
 import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.CONTENT_URI;
 import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.SELECTION_UUID;
@@ -34,7 +34,7 @@ public class EditSongActivity extends AbstractDetailSongActivity {
                 Song song = mDetailSongFragment.getSong();
 
                 if(song!=null) {
-                    ContentValues contentValues = MyConvertUtility.
+                    ContentValues contentValues = MySongConvertUtility.
                             createOneItemDataToContentValues(song);
 
                     String[] selectionArgs = {song.getId().toString()};
@@ -48,6 +48,7 @@ public class EditSongActivity extends AbstractDetailSongActivity {
                 }
             }
         });
+
     }
 
     @Override

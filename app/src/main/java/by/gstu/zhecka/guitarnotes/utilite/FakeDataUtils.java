@@ -8,10 +8,6 @@ import java.util.List;
 
 import by.gstu.zhecka.guitarnotes.model.Song;
 
-import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.COLUMN_AUTHOR;
-import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.COLUMN_NAME;
-import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.COLUMN_TEXT;
-import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.COLUMN_UUID;
 import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.CONTENT_URI;
 
 
@@ -31,7 +27,7 @@ public class FakeDataUtils {
         }
 
         for(int i=0; i<songs.size(); i++){
-            fakeValues.add(MyConvertUtility.createOneItemDataToContentValues(songs.get(i)));
+            fakeValues.add(MySongConvertUtility.createOneItemDataToContentValues(songs.get(i)));
         }
 
 

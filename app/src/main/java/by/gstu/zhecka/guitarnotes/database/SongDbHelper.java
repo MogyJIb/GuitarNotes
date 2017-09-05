@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import static android.provider.BaseColumns._ID;
 import static by.gstu.zhecka.guitarnotes.database.SongContract.*;
 import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.COLUMN_AUTHOR;
+import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.COLUMN_DETAIL;
 import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.COLUMN_NAME;
 import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.COLUMN_TEXT;
 import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.COLUMN_UUID;
@@ -21,7 +22,7 @@ public final class SongDbHelper extends SQLiteOpenHelper {
 
     /* Name and version of our database */
     public static final String DATABASE_NAME = "songsDB.db";
-    private static final int DATABASE_VERSION = 6;
+    private static final int DATABASE_VERSION = 7;
 
 
     /* Create tasks table (careful to follow SQL formatting rules) */
@@ -31,6 +32,7 @@ public final class SongDbHelper extends SQLiteOpenHelper {
                     COLUMN_NAME   + " STRING NOT NULL, "                   +
                     COLUMN_AUTHOR   + " STRING NOT NULL, "                   +
                     COLUMN_TEXT   + " STRING NOT NULL, "                   +
+                    COLUMN_DETAIL  + " BLOB NOT NULL, "                   +
                     " CONSTRAINT " +_ID +" PRIMARY KEY ("+COLUMN_NAME+"," +COLUMN_AUTHOR+")"+
                     " UNIQUE (" +COLUMN_NAME+"," +COLUMN_AUTHOR+ ") ON CONFLICT REPLACE);"              ;
 
