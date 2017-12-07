@@ -1,5 +1,6 @@
 package by.gstu.zhecka.guitarnotes.fragment;
 
+import android.inputmethodservice.KeyboardView;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import by.gstu.zhecka.guitarnotes.R;
+import by.gstu.zhecka.guitarnotes.keyboard.StrumKeyboard;
 import by.gstu.zhecka.guitarnotes.model.Song;
 
 import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.SONG_TAG;
@@ -30,7 +32,11 @@ public class DetailSongFragment extends Fragment {
     private EditText mSongAuthorTv;
     private EditText mSongTextTv;
 
-    private EditText mSongAccordTv;
+    private EditText mSongChordTv;
+    private EditText mSongStrumTv;
+
+    private StrumKeyboard mStrumKeyboard;
+
 
 
 
@@ -73,6 +79,11 @@ public class DetailSongFragment extends Fragment {
         mSongNameTv = (EditText) parentView.findViewById(R.id.tv_song_name);
         mSongAuthorTv = (EditText) parentView.findViewById(R.id.tv_song_author);
         mSongTextTv = (EditText) parentView.findViewById(R.id.tv_song_text);
+        mSongChordTv = (EditText) parentView.findViewById(R.id.tv_song_chord);
+        mSongStrumTv = (EditText) parentView.findViewById(R.id.tv_song_strum);
+
+        mStrumKeyboard = (StrumKeyboard)parentView.findViewById(R.id.strum_keyboard);
+        mStrumKeyboard.setEditText(mSongStrumTv,getActivity());
 
     }
 

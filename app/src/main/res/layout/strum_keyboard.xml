@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="horizontal"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:background="@drawable/border_background"
+    >
+
+
+    <ImageButton
+        android:tag="@string/downstroke"
+        android:id="@+id/ib_downstroke"
+
+        android:layout_width="wrap_content"
+
+        android:layout_height="wrap_content"
+
+        android:background="@drawable/ic_arrow_downward_black_18dp"
+        android:minHeight="18dp"
+        android:minWidth="24dp"
+        android:layout_margin="4dp"
+
+
+        />
+    <ImageButton
+        android:tag="@string/space"
+        android:id="@+id/ib_space"
+
+        android:layout_width="wrap_content"
+
+        android:layout_height="wrap_content"
+
+        android:background="@drawable/ic_space_bar_black_18dp"
+        android:minHeight="18dp"
+        android:minWidth="24dp"
+        android:layout_margin="4dp"
+        />
+    <ImageButton
+        android:tag="@string/upstroke"
+        android:id="@+id/ib_upstroke"
+
+        android:layout_width="wrap_content"
+
+        android:layout_height="wrap_content"
+
+        android:background="@drawable/ic_arrow_upward_black_18dp"
+        android:minHeight="18dp"
+        android:minWidth="24dp"
+        android:layout_margin="4dp"
+
+        />
+    <ImageButton
+        android:tag="@string/mute"
+
+        android:id="@+id/ib_mute"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_fullscreen_exit_black_18dp"
+        android:minHeight="18dp"
+        android:minWidth="24dp"
+        android:layout_margin="4dp"
+
+        />
+    <ImageButton
+        android:id="@+id/ib_backspace"
+        android:tag="@string/backspace"
+        android:layout_width="wrap_content"
+
+        android:layout_height="wrap_content"
+
+        android:background="@drawable/ic_backspace_black_18dp"
+        android:minHeight="18dp"
+        android:minWidth="24dp"
+        android:layout_margin="4dp"
+/>
+
+
+</LinearLayout>
+</merge>

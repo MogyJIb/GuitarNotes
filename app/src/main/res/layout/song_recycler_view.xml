@@ -7,8 +7,9 @@
         android:id="@+id/tv_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:hint="TextView recycler view"
         android:padding="8dp"
-        android:textSize="20dp"/>
+        android:textSize="18sp"
+        />
 
 </LinearLayout>

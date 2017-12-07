@@ -2,11 +2,6 @@ package by.gstu.zhecka.guitarnotes.model;
 
 import org.apache.commons.lang.SerializationUtils;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +25,7 @@ public class SongDetail implements Serializable {
     }
 
 
-    public final class Strum implements Serializable {
+    public static final class Strum implements Serializable {
         public final static int REST = 0;
         public final static int MUTE = 1;
         public final static int UPSTROCKE = 2;

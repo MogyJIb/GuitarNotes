@@ -1,4 +1,10 @@
 <resources>
+    <string name="backspace">-5</string>
+    <string name="mute">\u0023</string>
+    <string name="upstroke">\u2191</string>
+    <string name="space">\u0020</string>
+    <string name="downstroke">\u2193</string>
+
     <string name="app_name">GuitarNotes</string>
     <string name="title_activity_guitar">GuitarActivity</string>
     <string name="action_settings">Settings</string>
