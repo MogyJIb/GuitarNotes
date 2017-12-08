@@ -70,9 +70,13 @@ public final class SongContract {
         public static final int INDEX_SONG_DETAIL = 4;
 
         public static final String SORT_ODER_BY_NAME = "name";
+        public static final String SORT_ODER_BY_AUTHOR = "author";
 
-
+        public static final String SELECTION_NAME_AND_AUTHOR = COLUMN_NAME + " LIKE ? OR "+COLUMN_AUTHOR+" LIKE ? ";
         public static final String SELECTION_UUID = COLUMN_UUID + "=?";
+
+        public static final String SELECTION_ARGS = "selectionArgs";
+        public static final String SELECTION = "selection";
 
         public static final String SONG_TAG = "song";
         public static final String UUID_TAG = "uuid";

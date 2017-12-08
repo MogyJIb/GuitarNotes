@@ -32,6 +32,7 @@ public abstract class AbstractDetailSongActivity extends AppCompatActivity {
             mSong = (Song) getIntent().getSerializableExtra(SONG_TAG);
             fragment = DetailSongFragment.newInstance(mSong, isFocusable());
             mDetailSongFragment = (DetailSongFragment) fragment;
+            
 
             fm.beginTransaction()
                     .add(getContainLayoutId(), fragment)

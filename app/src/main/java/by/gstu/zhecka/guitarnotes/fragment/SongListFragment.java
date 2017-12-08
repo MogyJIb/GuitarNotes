@@ -23,6 +23,8 @@ import by.gstu.zhecka.guitarnotes.utilite.SongAdapter;
 import by.gstu.zhecka.guitarnotes.database.SongContract;
 
 import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.MAIN_SONGS_PROJECTION;
+import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.SELECTION_ARGS;
+import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.SELECTION_NAME_AND_AUTHOR;
 import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.SORT_ODER_BY_NAME;
 
 /**
@@ -79,30 +81,36 @@ public final class SongListFragment extends Fragment implements  LoaderManager.L
         /* Ensures a loader is initialized and active. If the loader doesn't already exist, one is
          created and (if the activity/fragment is currently started) starts the loader. Otherwise
          the last created loader is re-used. */
-        getLoaderManager().initLoader(SONGS_LOADER_ID, null, this);
-
+        reload(null);
         return view;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        getLoaderManager().initLoader(SONGS_LOADER_ID, null, this);
+        reload(null);
     }
 
     @Override
     public Loader<Cursor> onCreateLoader(int loaderId, Bundle args) {
+        String[] searchString = null;
+        if(args!=null)
+            searchString = args.getStringArray(SELECTION_ARGS);
+
         switch (loaderId) {
             case SONGS_LOADER_ID:
 
                 /* URI for all rows of songs data in our songs table */
                 Uri sQueryUri = SongContract.SongEntry.CONTENT_URI;
 
+                String selection = searchString == null ? null : SELECTION_NAME_AND_AUTHOR;
+                String[] selectionArgs = searchString;
+
                 return new CursorLoader(getContext(),
                         sQueryUri,
                         MAIN_SONGS_PROJECTION,
-                        null,
-                        null,
+                        selection,
+                        selectionArgs,
                         SORT_ODER_BY_NAME);
             default:
                 throw new RuntimeException("Loader Not Implemented: " + loaderId);
@@ -120,5 +128,9 @@ public final class SongListFragment extends Fragment implements  LoaderManager.L
 /* Since this Loader's data is now invalid, we need to clear the Adapter that is
          displaying the data. */
         mAdapter.swapCursor(null);
+    }
+
+    public void reload(Bundle args){
+        getLoaderManager().restartLoader(SONGS_LOADER_ID, args, this);
     }
 }
