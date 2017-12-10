@@ -17,13 +17,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import by.gstu.zhecka.guitarnotes.R;
-import by.gstu.zhecka.guitarnotes.activity.EditSongActivity;
-import by.gstu.zhecka.guitarnotes.utilite.FakeDataUtils;
-import by.gstu.zhecka.guitarnotes.utilite.SongAdapter;
+import by.gstu.zhecka.guitarnotes.activity.DetailSongActivity;
+import by.gstu.zhecka.guitarnotes.utils.FakeDataUtils;
+import by.gstu.zhecka.guitarnotes.database.SongAdapter;
 import by.gstu.zhecka.guitarnotes.database.SongContract;
 
 import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.MAIN_SONGS_PROJECTION;
-import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.SELECTION_ARGS;
+import static by.gstu.zhecka.guitarnotes.database.SongContract.SELECTION_ARGS;
 import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.SELECTION_NAME_AND_AUTHOR;
 import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.SORT_ODER_BY_NAME;
 
@@ -73,7 +73,7 @@ public final class SongListFragment extends Fragment implements  LoaderManager.L
         mAddSongActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getContext(), EditSongActivity.class);
+                Intent intent = new Intent(getContext(), DetailSongActivity.class);
                 getContext().startActivity(intent);
             }
         });

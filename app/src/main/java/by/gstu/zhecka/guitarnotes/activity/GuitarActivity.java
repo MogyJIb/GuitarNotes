@@ -1,56 +1,56 @@
 package by.gstu.zhecka.guitarnotes.activity;
 
-import android.app.SearchManager;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import by.gstu.zhecka.guitarnotes.R;
-import by.gstu.zhecka.guitarnotes.database.SongContract;
-import by.gstu.zhecka.guitarnotes.fragment.SongListFragment;
+import com.mikepenz.materialdrawer.Drawer;
+import com.mikepenz.materialdrawer.accountswitcher.AccountHeader;
 
-import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.SELECTION;
-import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.SELECTION_ARGS;
-import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.SELECTION_NAME_AND_AUTHOR;
+import by.gstu.zhecka.guitarnotes.R;
+import by.gstu.zhecka.guitarnotes.fragment.SongListFragment;
+import by.gstu.zhecka.guitarnotes.utils.DrawerNavigationUtils;
+
+import static by.gstu.zhecka.guitarnotes.database.SongContract.SELECTION_ARGS;
 
 /**
  * Created by Zhecka on 8/23/2017.
  */
 
 
-public final class GuitarActivity extends AppCompatActivity {
+public final class GuitarActivity extends MainActivity {
     private SongListFragment mSongListFragment;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_guitar);
-
 
         FragmentManager fm = getSupportFragmentManager();
-        Fragment fragment = fm.findFragmentById(R.id.guitar_activity);
+        Fragment fragment = fm.findFragmentById(R.id.main_activity_container);
 
 
         if (fragment == null) {
             mSongListFragment = new SongListFragment();
             fm.beginTransaction()
-                    .add(R.id.guitar_activity, mSongListFragment)
+                    .add(R.id.main_activity_container, mSongListFragment)
                     .commit();
         }
+
+
+
+
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.guitar_activity_menu,menu);
+        getMenuInflater().inflate(R.menu.search_menu,menu);
 
         configureSeachView(menu);
 

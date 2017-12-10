@@ -1,4 +1,4 @@
-package by.gstu.zhecka.guitarnotes.utilite;
+package by.gstu.zhecka.guitarnotes.database;
 
 /**
  * Created by Zhecka on 8/24/2017.
@@ -21,6 +21,7 @@ import java.util.UUID;
 import by.gstu.zhecka.guitarnotes.R;
 import by.gstu.zhecka.guitarnotes.activity.DetailSongActivity;
 import by.gstu.zhecka.guitarnotes.model.Song;
+import by.gstu.zhecka.guitarnotes.utils.MySongConvertUtility;
 
 import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.CONTENT_URI;
 import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.DETAIL_SONGS_PROJECTION;

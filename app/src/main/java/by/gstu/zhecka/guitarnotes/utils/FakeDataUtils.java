@@ -1,4 +1,4 @@
-package by.gstu.zhecka.guitarnotes.utilite;
+package by.gstu.zhecka.guitarnotes.utils;
 
 import android.content.ContentValues;
 import android.content.Context;

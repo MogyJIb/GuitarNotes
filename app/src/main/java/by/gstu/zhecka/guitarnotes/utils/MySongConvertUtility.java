@@ -1,12 +1,8 @@
-package by.gstu.zhecka.guitarnotes.utilite;
+package by.gstu.zhecka.guitarnotes.utils;
 
 import android.content.ContentValues;
 import android.database.Cursor;
 
-import java.io.ByteArrayInputStream;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.util.UUID;
 
 import by.gstu.zhecka.guitarnotes.model.Song;

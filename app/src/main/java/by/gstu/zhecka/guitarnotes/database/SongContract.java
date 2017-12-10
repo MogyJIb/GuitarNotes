@@ -21,6 +21,11 @@ public final class SongContract {
     the "songs" directory */
     public static final String PATH_SONGS = "songs";
 
+    public static final String PATH_ACCOUNTS = "accounts";
+
+    public static final String SELECTION_ARGS = "selectionArgs";
+    public static final String SELECTION = "selection";
+
 
     /* TaskEntry is an inner class that defines the contents of the task table */
     public static final class SongEntry
@@ -75,9 +80,6 @@ public final class SongContract {
         public static final String SELECTION_NAME_AND_AUTHOR = COLUMN_NAME + " LIKE ? OR "+COLUMN_AUTHOR+" LIKE ? ";
         public static final String SELECTION_UUID = COLUMN_UUID + "=?";
 
-        public static final String SELECTION_ARGS = "selectionArgs";
-        public static final String SELECTION = "selection";
-
         public static final String SONG_TAG = "song";
         public static final String UUID_TAG = "uuid";
 
@@ -104,6 +106,49 @@ public final class SongContract {
          - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
          */
+    }
+
+    /* TaskEntry is an inner class that defines the contents of the task table */
+    public static final class AccountEntry
+            implements BaseColumns {
+
+        /* TaskEntry content URI = base content URI + path */
+        public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon()
+                .appendPath(PATH_ACCOUNTS)
+                .build();
+
+
+        /* Task table and column names */
+        public static final String TABLE_NAME = "account";
+        public static final String COLUMN_UUID = "uuid";
+        public static final String COLUMN_LOGIN = "login";
+        public static final String COLUMN_PASSWORD = "password";
+
+
+        /* The columns of data that we are interested in displaying within our MainActivity's list of
+    weather data. */
+        public static final String[] MAIN_ACCOUNT_PROJECTION = {
+                COLUMN_UUID,
+                COLUMN_LOGIN,
+                COLUMN_PASSWORD
+        };
+
+
+        /* We store the indices of the values in the array of Strings above to more quickly be able to
+        access the data from our query. If the order of the Strings above changes, these indices
+        must be adjusted to match the order of the Strings. */
+        public static final int INDEX_ACCOUNT_UUID = 0;
+        public static final int INDEX_ACCOUNT_LOGIN = 1;
+        public static final int INDEX_ACCOUNT_PASSWORD = 2;
+
+        public static final String SORT_ODER_BY_UUID = "uuid";
+
+        public static final String SELECTION_UUID = COLUMN_UUID + "=?";
+
+
+        public static final String ACCOUNT_TAG = "account";
+        public static final String UUID_TAG = "uuid";
+
     }
 }
 
