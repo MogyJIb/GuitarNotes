@@ -1,6 +1,5 @@
 package by.gstu.zhecka.guitarnotes.fragment;
 
-import android.inputmethodservice.KeyboardView;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -21,7 +20,7 @@ import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.SONG_TA
  * Created by Zhecka on 8/25/2017.
  */
 
-public abstract class AbstractDetailSongFragment<T extends Fragment> extends Fragment {
+public abstract class AbstractDetailSongFragment extends Fragment {
 
     public final static String IS_FOCUSABLE_TAG = "isFocusable";
 

@@ -42,7 +42,7 @@ public class EditSongFragment extends AbstractDetailSongFragment {
 
                 if(song!=null) {
                     ContentValues contentValues = MySongConvertUtility.
-                            createOneItemDataToContentValues(song);
+                            getContentValuesFromSong(song);
 
                     String[] selectionArgs = {song.getId().toString()};
                     int songUpdated = getContext().getContentResolver().update(CONTENT_URI,contentValues, SELECTION_UUID,selectionArgs);

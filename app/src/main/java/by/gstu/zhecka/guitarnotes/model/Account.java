@@ -9,6 +9,7 @@ import java.util.UUID;
 public class Account {
 
      private UUID mId;
+     private String mName;
     private String mLogin;
     private String mPassword;
 
@@ -16,12 +17,19 @@ public class Account {
         mId = UUID.randomUUID();
         mLogin = "";
         mPassword = "";
+        mName = "";
     }
 
-    public Account(UUID id, String login, String password) {
-        mId = id;
+    public Account(String name, String login, String password) {
+        this();
+        mName = name;
         mLogin = login;
         this.mPassword = password;
+    }
+
+    public Account(UUID id, String name, String login, String password) {
+        this(name,login,password);
+        mId = id;
     }
 
     public UUID getId() {
@@ -46,5 +54,13 @@ public class Account {
 
     public void setPassword(String password) {
         this.mPassword = password;
+    }
+
+    public String getName() {
+        return mName;
+    }
+
+    public void setName(String name) {
+        mName = name;
     }
 }

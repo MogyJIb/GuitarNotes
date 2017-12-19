@@ -119,8 +119,9 @@ public final class SongContract {
 
 
         /* Task table and column names */
-        public static final String TABLE_NAME = "account";
+        public static final String TABLE_NAME = "ACCOUNT";
         public static final String COLUMN_UUID = "uuid";
+        public static final String COLUMN_NAME = "name";
         public static final String COLUMN_LOGIN = "login";
         public static final String COLUMN_PASSWORD = "password";
 
@@ -129,7 +130,13 @@ public final class SongContract {
     weather data. */
         public static final String[] MAIN_ACCOUNT_PROJECTION = {
                 COLUMN_UUID,
+                COLUMN_NAME,
                 COLUMN_LOGIN,
+                COLUMN_PASSWORD
+        };
+
+        public static final String[] LOGIN_ACCOUNT_PROJECTION = {
+                COLUMN_UUID,
                 COLUMN_PASSWORD
         };
 
@@ -138,15 +145,17 @@ public final class SongContract {
         access the data from our query. If the order of the Strings above changes, these indices
         must be adjusted to match the order of the Strings. */
         public static final int INDEX_ACCOUNT_UUID = 0;
-        public static final int INDEX_ACCOUNT_LOGIN = 1;
-        public static final int INDEX_ACCOUNT_PASSWORD = 2;
+        public static final int INDEX_ACCOUNT_NAME = 1;
+        public static final int INDEX_ACCOUNT_LOGIN = 2;
+        public static final int INDEX_ACCOUNT_PASSWORD = 3;
 
         public static final String SORT_ODER_BY_UUID = "uuid";
 
+        public static final String SELECTION_LOGIN = COLUMN_LOGIN + "=?";
         public static final String SELECTION_UUID = COLUMN_UUID + "=?";
 
 
-        public static final String ACCOUNT_TAG = "account";
+        public static final String ACCOUNT_TAG = "ACCOUNT";
         public static final String UUID_TAG = "uuid";
 
     }

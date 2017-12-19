@@ -13,8 +13,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 
-import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.TABLE_NAME;
-
 
 public final class SongProvider
         extends ContentProvider {
@@ -23,7 +21,7 @@ public final class SongProvider
     advantage of the UriMatcher class to make that matching MUCH easier than doing something
     ourselves, such as using regular expressions. */
     public static final int CODE_SONGS = 100;
-    public static final int CODE_SONGS_WITH_DATE = 101;
+    public static final int CODE_ACCOUNTS = 101;
 
 
     /* The URI Matcher used by this content provider. */
@@ -52,10 +50,15 @@ public final class SongProvider
         matcher.addURI(authority, SongContract.PATH_SONGS, CODE_SONGS);
 
 
+        /* This URI is content://by.application.android.zhecka.guitarmysongs/accounts/ */
+        matcher.addURI(authority, SongContract.PATH_ACCOUNTS, CODE_ACCOUNTS);
+
+
         /* This URI would look something like content://by.application.android.zhecka.guitarmysongs/songs/1472214172
          The "/#" signifies to the UriMatcher that if PATH_SONGS is followed by ANY number,
          that it should return the CODE_SONGS_WITH_DATE code */
-        matcher.addURI(authority, SongContract.PATH_SONGS + "/#", CODE_SONGS_WITH_DATE);
+       // matcher.addURI(authority, SongContract.PATH_SONGS + "/#", CODE_SONGS_WITH_DATE);
+
         return matcher;
     }
 
@@ -76,36 +79,48 @@ public final class SongProvider
     /* Handles requests to insert a set of new rows. */
     @Override
     public int bulkInsert(@NonNull Uri uri, @NonNull ContentValues[] values) {
+        String tableName ="";
         final SQLiteDatabase db = mDbHelper.getWritableDatabase();
         switch (sUriMatcher.match(uri)) {
             case CODE_SONGS:
-                db.beginTransaction();
-                int rowsInserted = 0;
-                try {
-                    for (ContentValues value : values) {
-                        long _id = db.insert(TABLE_NAME, null, value);
-                        if (_id != -1) {
-                            rowsInserted++;
-                        }
-                    }
-                    db.setTransactionSuccessful();
-                } finally {
-                    db.endTransaction();
-                }
-
-                if (rowsInserted > 0) {
-                    getContext().getContentResolver().notifyChange(uri, null);
-                }
-                return rowsInserted;
+                tableName = SongContract.SongEntry.TABLE_NAME;
+               break;
+            case CODE_ACCOUNTS:
+                tableName = SongContract.AccountEntry.TABLE_NAME;
+                break;
             default:
                 return super.bulkInsert(uri, values);
         }
+
+
+
+        db.beginTransaction();
+        int rowsInserted = 0;
+        try {
+            for (ContentValues value : values) {
+                long _id = db.insert(tableName, null, value);
+                if (_id != -1) {
+                    rowsInserted++;
+                }
+            }
+            db.setTransactionSuccessful();
+        } finally {
+            db.endTransaction();
+        }
+
+        if (rowsInserted > 0) {
+            getContext().getContentResolver().notifyChange(uri, null);
+        }
+        return rowsInserted;
+
     }
 
 
     /* Implement insert to handle requests to insert a single new row of data */
     @Override
     public Uri insert(@NonNull Uri uri, ContentValues values) {
+
+        String tableName ="";
 
         /* Get access to the task database (to write new data to) */
         final SQLiteDatabase db = mDbHelper.getWritableDatabase();
@@ -115,34 +130,35 @@ public final class SongProvider
         /* Write URI matching code to identify the match for the tasks directory */
         switch (sUriMatcher.match(uri)) {
             case CODE_SONGS:
-                db.beginTransaction();
-
-
-                /* Inserting values into tasks table */
-                long id = 0;
-                try {
-                    id = db.insert(TABLE_NAME, null, values);
-                    db.setTransactionSuccessful();
-                } finally {
-                    db.endTransaction();
-                }
-                if (id > 0) {
-                    returnUri = ContentUris.withAppendedId(SongContract.SongEntry.CONTENT_URI, id);
-
-
-                    /* Notify the resolver if the uri has been changed, and return the newly inserted URI */
-                    getContext().getContentResolver().notifyChange(uri, null);
-                } else {
-                    throw new android.database.SQLException("Failed to insert row into " + uri);
-                }
+                tableName = SongContract.SongEntry.TABLE_NAME;
                 break;
-
-
+            case CODE_ACCOUNTS:
+                tableName = SongContract.AccountEntry.TABLE_NAME;
+                break;
                 /* Default case throws an UnsupportedOperationException */
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
         }
+        db.beginTransaction();
 
+
+                /* Inserting values into tasks table */
+        long id = 0;
+        try {
+            id = db.insert(tableName, null, values);
+            db.setTransactionSuccessful();
+        } finally {
+            db.endTransaction();
+        }
+        if (id > 0) {
+            returnUri = ContentUris.withAppendedId(SongContract.SongEntry.CONTENT_URI, id);
+
+
+                    /* Notify the resolver if the uri has been changed, and return the newly inserted URI */
+            getContext().getContentResolver().notifyChange(uri, null);
+        } else {
+            throw new android.database.SQLException("Failed to insert row into " + uri);
+        }
 
         /* Return constructed uri (this points to the newly inserted row of data) */
         return returnUri;
@@ -153,6 +169,9 @@ public final class SongProvider
     @Override
     public Cursor query(@NonNull Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
 
+        String tableName ="";
+
+
         /* Get access to underlying database (read-only for query) */
         final SQLiteDatabase db = mDbHelper.getReadableDatabase();
         Cursor retCursor;
@@ -161,13 +180,10 @@ public final class SongProvider
         /* Query for the tasks directory and write a default case */
         switch (sUriMatcher.match(uri)){
             case CODE_SONGS:
-                retCursor = db.query(TABLE_NAME,
-                        projection,
-                        selection,
-                        selectionArgs,
-                        null,
-                        null,
-                        sortOrder);
+                tableName = SongContract.SongEntry.TABLE_NAME;
+                break;
+            case CODE_ACCOUNTS:
+                tableName = SongContract.AccountEntry.TABLE_NAME;
                 break;
 
 
@@ -176,6 +192,13 @@ public final class SongProvider
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
         }
 
+        retCursor = db.query(tableName,
+                projection,
+                selection,
+                selectionArgs,
+                null,
+                null,
+                sortOrder);
 
         /* Set a notification URI on the Cursor and return that Cursor */
         retCursor.setNotificationUri(getContext().getContentResolver(), uri);
@@ -196,6 +219,9 @@ public final class SongProvider
     @Override
     public int delete(@NonNull Uri uri, String selection, String[] selectionArgs) {
 
+        String tableName ="";
+
+
         /* Get access to the database and write URI matching code to recognize a single item */
         final SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
@@ -209,13 +235,18 @@ public final class SongProvider
 
             /* Handle the single item case, recognized by the ID included in the URI path */
             case CODE_SONGS:
-
-                /* Use selections/selectionArgs to filter for this ID */
-                songsDeleted = db.delete(TABLE_NAME, selection, selectionArgs);
+                tableName = SongContract.SongEntry.TABLE_NAME;
+                break;
+            case CODE_ACCOUNTS:
+                tableName = SongContract.AccountEntry.TABLE_NAME;
                 break;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
         }
+
+                /* Use selections/selectionArgs to filter for this ID */
+        songsDeleted = db.delete(tableName, selection, selectionArgs);
+
         if (songsDeleted != 0) {
 
 
@@ -231,6 +262,8 @@ public final class SongProvider
 
     @Override
     public int update(@NonNull Uri uri, ContentValues values, String selection, String[] selectionArgs) {
+        String tableName ="";
+
         final SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
 
@@ -243,13 +276,17 @@ public final class SongProvider
 
             /* Handle the single item case, recognized by the ID included in the URI path */
             case CODE_SONGS:
-
-                /* Use selections/selectionArgs to filter for this ID */
-                songsUpdated = db.update(TABLE_NAME,values,selection,selectionArgs);
+                tableName = SongContract.SongEntry.TABLE_NAME;
+                break;
+            case CODE_ACCOUNTS:
+                tableName = SongContract.AccountEntry.TABLE_NAME;
                 break;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
         }
+
+         /* Use selections/selectionArgs to filter for this ID */
+        songsUpdated = db.update(tableName,values,selection,selectionArgs);
         if (songsUpdated != 0) {
 
 

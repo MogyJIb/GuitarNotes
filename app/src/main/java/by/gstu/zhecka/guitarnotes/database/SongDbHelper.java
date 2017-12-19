@@ -5,13 +5,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import static android.provider.BaseColumns._ID;
-import static by.gstu.zhecka.guitarnotes.database.SongContract.*;
-import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.COLUMN_AUTHOR;
-import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.COLUMN_DETAIL;
-import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.COLUMN_NAME;
-import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.COLUMN_TEXT;
-import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.COLUMN_UUID;
-import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.TABLE_NAME;
+import static by.gstu.zhecka.guitarnotes.database.SongContract.AccountEntry;
+import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry;
 
 /**
  * Created by Zhecka on 8/23/2017.
@@ -22,23 +17,33 @@ public final class SongDbHelper extends SQLiteOpenHelper {
 
     /* Name and version of our database */
     public static final String DATABASE_NAME = "songsDB.db";
-    private static final int DATABASE_VERSION = 7;
+    private static final int DATABASE_VERSION = 8;
 
 
     /* Create tasks table (careful to follow SQL formatting rules) */
     private static final String SQL_CREATE_SONGS_TABLE =
-            "CREATE TABLE " + TABLE_NAME         + " ("                                   +
-                    COLUMN_UUID     + " STRING NOT NULL , "                  +
-                    COLUMN_NAME   + " STRING NOT NULL, "                   +
-                    COLUMN_AUTHOR   + " STRING NOT NULL, "                   +
-                    COLUMN_TEXT   + " STRING NOT NULL, "                   +
-                    COLUMN_DETAIL  + " BLOB NOT NULL, "                   +
-                    " CONSTRAINT " +_ID +" PRIMARY KEY ("+COLUMN_NAME+"," +COLUMN_AUTHOR+")"+
-                    " UNIQUE (" +COLUMN_NAME+"," +COLUMN_AUTHOR+ ") ON CONFLICT REPLACE);"              ;
+            "CREATE TABLE " + SongEntry.TABLE_NAME         + " ("                                   +
+                    SongEntry.COLUMN_UUID     + " STRING NOT NULL , "                  +
+                    SongEntry.COLUMN_NAME   + " STRING NOT NULL, "                   +
+                    SongEntry.COLUMN_AUTHOR   + " STRING NOT NULL, "                   +
+                    SongEntry.COLUMN_TEXT   + " STRING NOT NULL, "                   +
+                    SongEntry.COLUMN_DETAIL  + " BLOB NOT NULL, "                   +
+                    " CONSTRAINT " +_ID +" PRIMARY KEY ("+SongEntry.COLUMN_NAME+"," +SongEntry.COLUMN_AUTHOR+")"+
+                    " UNIQUE (" +SongEntry.COLUMN_NAME+"," +SongEntry.COLUMN_AUTHOR+ ") ON CONFLICT REPLACE);"              ;
+
+    private static final String SQL_CREATE_ACCOUNTS_TABLE =
+            "CREATE TABLE " + AccountEntry.TABLE_NAME         + " ("                                   +
+                    AccountEntry.COLUMN_UUID     + " STRING NOT NULL , "                  +
+                    AccountEntry.COLUMN_NAME   + " STRING NOT NULL, "                   +
+                    AccountEntry.COLUMN_LOGIN   + " STRING NOT NULL, "                   +
+                    AccountEntry.COLUMN_PASSWORD   + " STRING NOT NULL, "                   +
+                    " CONSTRAINT " +_ID +" PRIMARY KEY ("+AccountEntry.COLUMN_LOGIN+")"+
+                    " UNIQUE (" +AccountEntry.COLUMN_LOGIN+ ") ON CONFLICT REPLACE);"              ;
 
     /* Create string name for onUpgrade method (careful to follow SQL formatting rules) */
     private static final String SQL_DELETE_ENTRIES =
-            "DROP TABLE IF EXISTS " + TABLE_NAME;
+            "DROP TABLE IF EXISTS " + SongEntry.TABLE_NAME+";\n "+
+                    "DROP TABLE IF EXISTS " + AccountEntry.TABLE_NAME+";";
 
 
     /* Constructor for our class */
@@ -51,6 +56,7 @@ public final class SongDbHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL(SQL_CREATE_SONGS_TABLE);
+        sqLiteDatabase.execSQL(SQL_CREATE_ACCOUNTS_TABLE);
     }
 
 
