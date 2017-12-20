@@ -1,4 +1,4 @@
-package by.gstu.zhecka.guitarnotes.fragment;
+package by.gstu.zhecka.guitarnotes.fragment.songs;
 
 import android.content.ContentValues;
 import android.os.Bundle;
@@ -42,7 +42,7 @@ public class EditSongFragment extends AbstractDetailSongFragment {
 
                 if(song!=null) {
                     ContentValues contentValues = MySongConvertUtility.
-                            getContentValuesFromSong(song);
+                            getContentValues(song);
 
                     String[] selectionArgs = {song.getId().toString()};
                     int songUpdated = getContext().getContentResolver().update(CONTENT_URI,contentValues, SELECTION_UUID,selectionArgs);
@@ -54,7 +54,7 @@ public class EditSongFragment extends AbstractDetailSongFragment {
 
                     getFragmentManager().popBackStack();
                     getFragmentManager().beginTransaction()
-                            .replace(R.id.main_activity_container,DetailSongFragment.newInstance(mSong))
+                            .replace(R.id.main_activity_container, DetailSongFragment.newInstance(mSong))
                             .commit();
                 }
             }

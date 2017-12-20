@@ -111,11 +111,10 @@ public class DrawerNavigationUtils {
                 return false;
             }
         })
-                .withSavedInstance(savedInstanceState);
+        .withSavedInstance(savedInstanceState);
+
         // Create the AccountHeader
         return header.build();
-
-
     }
 
     public static Drawer.Result createCommonDrawer(final AppCompatActivity activity, Toolbar toolbar, AccountHeader.Result headerResult) {

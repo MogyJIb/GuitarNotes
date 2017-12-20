@@ -5,7 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 
 import by.gstu.zhecka.guitarnotes.R;
-import by.gstu.zhecka.guitarnotes.fragment.LogInFragment;
+import by.gstu.zhecka.guitarnotes.fragment.accounts.LogInFragment;
 
 
 /**

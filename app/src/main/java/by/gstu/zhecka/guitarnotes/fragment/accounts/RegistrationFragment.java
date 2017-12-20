@@ -1,4 +1,4 @@
-package by.gstu.zhecka.guitarnotes.fragment;
+package by.gstu.zhecka.guitarnotes.fragment.accounts;
 
 import android.content.ContentValues;
 import android.os.Bundle;
@@ -60,7 +60,7 @@ public class RegistrationFragment extends Fragment {
 
                 if(account!=null) {
                     ContentValues contentValues = MySongConvertUtility.
-                            getContentValuesFromAccount(account);
+                            getContentValues(account);
 
                     String[] selectionArgs = {account.getId().toString()};
                     int accountUpdated = getContext().getContentResolver().update(AccountEntry.CONTENT_URI,contentValues, AccountEntry.SELECTION_UUID,selectionArgs);

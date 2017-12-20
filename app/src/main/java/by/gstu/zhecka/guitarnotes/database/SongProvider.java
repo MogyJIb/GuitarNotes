@@ -22,6 +22,7 @@ public final class SongProvider
     ourselves, such as using regular expressions. */
     public static final int CODE_SONGS = 100;
     public static final int CODE_ACCOUNTS = 101;
+    public static final int CODE_AUTHORS = 102;
 
 
     /* The URI Matcher used by this content provider. */
@@ -52,6 +53,9 @@ public final class SongProvider
 
         /* This URI is content://by.application.android.zhecka.guitarmysongs/accounts/ */
         matcher.addURI(authority, SongContract.PATH_ACCOUNTS, CODE_ACCOUNTS);
+
+        /* This URI is content://by.application.android.zhecka.guitarmysongs/authors/ */
+        matcher.addURI(authority, SongContract.PATH_AUTHORS, CODE_AUTHORS);
 
 
         /* This URI would look something like content://by.application.android.zhecka.guitarmysongs/songs/1472214172
@@ -87,6 +91,9 @@ public final class SongProvider
                break;
             case CODE_ACCOUNTS:
                 tableName = SongContract.AccountEntry.TABLE_NAME;
+                break;
+            case CODE_AUTHORS:
+                tableName = SongContract.AuthorEntry.TABLE_NAME;
                 break;
             default:
                 return super.bulkInsert(uri, values);
@@ -134,6 +141,9 @@ public final class SongProvider
                 break;
             case CODE_ACCOUNTS:
                 tableName = SongContract.AccountEntry.TABLE_NAME;
+                break;
+            case CODE_AUTHORS:
+                tableName = SongContract.AuthorEntry.TABLE_NAME;
                 break;
                 /* Default case throws an UnsupportedOperationException */
             default:
@@ -185,7 +195,9 @@ public final class SongProvider
             case CODE_ACCOUNTS:
                 tableName = SongContract.AccountEntry.TABLE_NAME;
                 break;
-
+            case CODE_AUTHORS:
+                tableName = SongContract.AuthorEntry.TABLE_NAME;
+            break;
 
             /* Default exception */
             default:
@@ -280,6 +292,9 @@ public final class SongProvider
                 break;
             case CODE_ACCOUNTS:
                 tableName = SongContract.AccountEntry.TABLE_NAME;
+                break;
+            case CODE_AUTHORS:
+                tableName = SongContract.AuthorEntry.TABLE_NAME;
                 break;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);

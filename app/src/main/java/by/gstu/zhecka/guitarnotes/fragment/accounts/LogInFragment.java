@@ -1,4 +1,4 @@
-package by.gstu.zhecka.guitarnotes.fragment;
+package by.gstu.zhecka.guitarnotes.fragment.accounts;
 
 import android.database.Cursor;
 import android.os.Bundle;

@@ -1,4 +1,4 @@
-package by.gstu.zhecka.guitarnotes.fragment;
+package by.gstu.zhecka.guitarnotes.fragment.songs;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -18,20 +18,21 @@ import android.view.ViewGroup;
 
 import by.gstu.zhecka.guitarnotes.R;
 import by.gstu.zhecka.guitarnotes.activity.DetailSongActivity;
-import by.gstu.zhecka.guitarnotes.utils.FakeDataUtils;
-import by.gstu.zhecka.guitarnotes.database.SongAdapter;
 import by.gstu.zhecka.guitarnotes.database.SongContract;
+import by.gstu.zhecka.guitarnotes.interfaces.SeachCursorLoader;
+import by.gstu.zhecka.guitarnotes.utils.FakeDataUtils;
+import by.gstu.zhecka.guitarnotes.utils.adapters.SongAdapter;
 
-import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.MAIN_SONGS_PROJECTION;
+import static by.gstu.zhecka.guitarnotes.database.SongContract.SELECTION;
 import static by.gstu.zhecka.guitarnotes.database.SongContract.SELECTION_ARGS;
-import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.SELECTION_NAME_AND_AUTHOR;
+import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.MAIN_SONGS_PROJECTION;
 import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.SORT_ODER_BY_NAME;
 
 /**
  * Created by Zhecka on 8/23/2017.
  */
 
-public final class SongListFragment extends Fragment implements  LoaderManager.LoaderCallbacks<Cursor>{
+public final class SongListFragment extends Fragment implements  LoaderManager.LoaderCallbacks<Cursor>, SeachCursorLoader{
 
     /* This ID will be used to identify the Loader responsible for loading our songs. */
     private static final int SONGS_LOADER_ID = 44;
@@ -69,7 +70,7 @@ public final class SongListFragment extends Fragment implements  LoaderManager.L
         mRecyclerView.setAdapter(mAdapter);
 
 
-        mAddSongActionButton = (FloatingActionButton)view.findViewById(R.id.fb_add_new_song);
+        mAddSongActionButton = (FloatingActionButton)view.findViewById(R.id.fb_add_new);
         mAddSongActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -94,8 +95,11 @@ public final class SongListFragment extends Fragment implements  LoaderManager.L
     @Override
     public Loader<Cursor> onCreateLoader(int loaderId, Bundle args) {
         String[] searchString = null;
-        if(args!=null)
+        String selectIt = null;
+        if(args!=null) {
             searchString = args.getStringArray(SELECTION_ARGS);
+            selectIt  = args.getString(SELECTION);
+        }
 
         switch (loaderId) {
             case SONGS_LOADER_ID:
@@ -103,7 +107,7 @@ public final class SongListFragment extends Fragment implements  LoaderManager.L
                 /* URI for all rows of songs data in our songs table */
                 Uri sQueryUri = SongContract.SongEntry.CONTENT_URI;
 
-                String selection = searchString == null ? null : SELECTION_NAME_AND_AUTHOR;
+                String selection = selectIt;
                 String[] selectionArgs = searchString;
 
                 return new CursorLoader(getContext(),
@@ -131,6 +135,6 @@ public final class SongListFragment extends Fragment implements  LoaderManager.L
     }
 
     public void reload(Bundle args){
-        getLoaderManager().restartLoader(SONGS_LOADER_ID, args, this);
+        getLoaderManager().restartLoader(SONGS_LOADER_ID, args,this);
     }
 }

@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import static android.provider.BaseColumns._ID;
 import static by.gstu.zhecka.guitarnotes.database.SongContract.AccountEntry;
+import static by.gstu.zhecka.guitarnotes.database.SongContract.AuthorEntry;
 import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry;
 
 /**
@@ -17,7 +18,7 @@ public final class SongDbHelper extends SQLiteOpenHelper {
 
     /* Name and version of our database */
     public static final String DATABASE_NAME = "songsDB.db";
-    private static final int DATABASE_VERSION = 8;
+    private static final int DATABASE_VERSION = 13;
 
 
     /* Create tasks table (careful to follow SQL formatting rules) */
@@ -25,11 +26,11 @@ public final class SongDbHelper extends SQLiteOpenHelper {
             "CREATE TABLE " + SongEntry.TABLE_NAME         + " ("                                   +
                     SongEntry.COLUMN_UUID     + " STRING NOT NULL , "                  +
                     SongEntry.COLUMN_NAME   + " STRING NOT NULL, "                   +
-                    SongEntry.COLUMN_AUTHOR   + " STRING NOT NULL, "                   +
+                    SongEntry.COLUMN_AUTHOR_ID   + " STRING NOT NULL, "                   +
                     SongEntry.COLUMN_TEXT   + " STRING NOT NULL, "                   +
                     SongEntry.COLUMN_DETAIL  + " BLOB NOT NULL, "                   +
-                    " CONSTRAINT " +_ID +" PRIMARY KEY ("+SongEntry.COLUMN_NAME+"," +SongEntry.COLUMN_AUTHOR+")"+
-                    " UNIQUE (" +SongEntry.COLUMN_NAME+"," +SongEntry.COLUMN_AUTHOR+ ") ON CONFLICT REPLACE);"              ;
+                    " CONSTRAINT " +_ID +" PRIMARY KEY ("+SongEntry.COLUMN_NAME+")"+
+                    " UNIQUE (" +SongEntry.COLUMN_NAME+ ") ON CONFLICT REPLACE);"              ;
 
     private static final String SQL_CREATE_ACCOUNTS_TABLE =
             "CREATE TABLE " + AccountEntry.TABLE_NAME         + " ("                                   +
@@ -40,11 +41,24 @@ public final class SongDbHelper extends SQLiteOpenHelper {
                     " CONSTRAINT " +_ID +" PRIMARY KEY ("+AccountEntry.COLUMN_LOGIN+")"+
                     " UNIQUE (" +AccountEntry.COLUMN_LOGIN+ ") ON CONFLICT REPLACE);"              ;
 
-    /* Create string name for onUpgrade method (careful to follow SQL formatting rules) */
-    private static final String SQL_DELETE_ENTRIES =
-            "DROP TABLE IF EXISTS " + SongEntry.TABLE_NAME+";\n "+
-                    "DROP TABLE IF EXISTS " + AccountEntry.TABLE_NAME+";";
+    private static final String SQL_CREATE_AUTHORS_TABLE =
+            "CREATE TABLE " + AuthorEntry.TABLE_NAME         + " ("                                   +
+                    AuthorEntry.COLUMN_UUID     + " STRING NOT NULL , "                  +
+                    AuthorEntry.COLUMN_NAME   + " STRING NOT NULL, "                   +
+                    AuthorEntry.COLUMN_COUNTRY   + " STRING NOT NULL, "                   +
+                    AuthorEntry.COLUMN_DEBUT_DATE   + " STRING NOT NULL, "                   +
+                    AuthorEntry.COLUMN_GROUP_MEMBERS   + " STRING NOT NULL, "                   +
+                    " CONSTRAINT " +_ID +" PRIMARY KEY ("+AuthorEntry.COLUMN_NAME+")"+
+                    " UNIQUE (" +AuthorEntry.COLUMN_NAME+ ") ON CONFLICT REPLACE);"              ;
 
+
+    /* Create string name for onUpgrade method (careful to follow SQL formatting rules) */
+    private static final String SQL_DELETE_SONG_ENTRIES =
+            "DROP TABLE IF EXISTS " + SongEntry.TABLE_NAME;
+    private static final String SQL_DELETE_ACCOUNT_ENTRIES =
+            "DROP TABLE IF EXISTS " + AccountEntry.TABLE_NAME;
+    private static final String SQL_DELETE_AUTHOR_ENTRIES =
+            "DROP TABLE IF EXISTS " + AuthorEntry.TABLE_NAME;
 
     /* Constructor for our class */
     public SongDbHelper(Context context) {
@@ -57,6 +71,7 @@ public final class SongDbHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL(SQL_CREATE_SONGS_TABLE);
         sqLiteDatabase.execSQL(SQL_CREATE_ACCOUNTS_TABLE);
+        sqLiteDatabase.execSQL(SQL_CREATE_AUTHORS_TABLE);
     }
 
 
@@ -65,7 +80,9 @@ public final class SongDbHelper extends SQLiteOpenHelper {
     is incremented. */
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
-        sqLiteDatabase.execSQL(SQL_DELETE_ENTRIES);
+        sqLiteDatabase.execSQL(SQL_DELETE_ACCOUNT_ENTRIES);
+        sqLiteDatabase.execSQL(SQL_DELETE_AUTHOR_ENTRIES);
+        sqLiteDatabase.execSQL(SQL_DELETE_SONG_ENTRIES);
         onCreate(sqLiteDatabase);
     }
 }

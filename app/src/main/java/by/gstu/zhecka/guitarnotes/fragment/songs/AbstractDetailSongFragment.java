@@ -1,4 +1,4 @@
-package by.gstu.zhecka.guitarnotes.fragment;
+package by.gstu.zhecka.guitarnotes.fragment.songs;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import java.util.UUID;
 
 import by.gstu.zhecka.guitarnotes.R;
 import by.gstu.zhecka.guitarnotes.keyboard.StrumKeyboard;
@@ -93,7 +95,7 @@ public abstract class AbstractDetailSongFragment extends Fragment {
         mSongTextTv.setText(mSong.getText()+"\n"+
                 mSong.getId());
         mSongNameTv.setText(mSong.getName());
-        mSongAuthorTv.setText(mSong.getAuthor());
+        mSongAuthorTv.setText(mSong.getAuthorId().toString());
 
 
     }
@@ -105,7 +107,7 @@ public abstract class AbstractDetailSongFragment extends Fragment {
                 mSong = new Song();
 
             mSong.setName(mSongNameTv.getText().toString());
-            mSong.setAuthor(mSongAuthorTv.getText().toString());
+            mSong.setAuthorId(UUID.fromString(mSongAuthorTv.getText().toString()));
             mSong.setText(mSongTextTv.getText().toString());
 
 

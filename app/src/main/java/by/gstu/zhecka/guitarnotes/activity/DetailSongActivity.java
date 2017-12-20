@@ -6,8 +6,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 
 import by.gstu.zhecka.guitarnotes.R;
-import by.gstu.zhecka.guitarnotes.fragment.DetailSongFragment;
-import by.gstu.zhecka.guitarnotes.fragment.EditSongFragment;
+import by.gstu.zhecka.guitarnotes.fragment.songs.DetailSongFragment;
+import by.gstu.zhecka.guitarnotes.fragment.songs.EditSongFragment;
 import by.gstu.zhecka.guitarnotes.model.Song;
 
 import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.SONG_TAG;

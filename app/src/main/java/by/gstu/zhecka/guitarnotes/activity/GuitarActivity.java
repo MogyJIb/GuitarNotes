@@ -3,20 +3,16 @@ package by.gstu.zhecka.guitarnotes.activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.mikepenz.materialdrawer.Drawer;
-import com.mikepenz.materialdrawer.accountswitcher.AccountHeader;
-
 import by.gstu.zhecka.guitarnotes.R;
-import by.gstu.zhecka.guitarnotes.fragment.SongListFragment;
-import by.gstu.zhecka.guitarnotes.utils.DrawerNavigationUtils;
+import by.gstu.zhecka.guitarnotes.database.SongContract;
+import by.gstu.zhecka.guitarnotes.fragment.GuitarFragment;
 
+import static by.gstu.zhecka.guitarnotes.database.SongContract.SELECTION;
 import static by.gstu.zhecka.guitarnotes.database.SongContract.SELECTION_ARGS;
 
 /**
@@ -25,7 +21,7 @@ import static by.gstu.zhecka.guitarnotes.database.SongContract.SELECTION_ARGS;
 
 
 public final class GuitarActivity extends MainActivity {
-    private SongListFragment mSongListFragment;
+    private GuitarFragment mGuitarFragment;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -36,9 +32,9 @@ public final class GuitarActivity extends MainActivity {
 
 
         if (fragment == null) {
-            mSongListFragment = new SongListFragment();
+            mGuitarFragment = new GuitarFragment();
             fm.beginTransaction()
-                    .add(R.id.main_activity_container, mSongListFragment)
+                    .add(R.id.main_activity_container, mGuitarFragment)
                     .commit();
         }
 
@@ -65,16 +61,19 @@ public final class GuitarActivity extends MainActivity {
 
     private void configureSeachView(Menu menu){
         // Associate searchable configuration with the SearchView
-        SearchView searchView =
+        final SearchView searchView =
                 (SearchView) menu.findItem(R.id.action_search).getActionView();
 
         //set up the query listener
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+
                 Bundle bundle = new Bundle();
                 bundle.putStringArray(SELECTION_ARGS,new String[]{"%"+query+"%"});
-                mSongListFragment.reload(bundle);
+                bundle.putString(SELECTION, SongContract.SongEntry.SELECTION_NAME);
+
+                mGuitarFragment.getSelected().reload(bundle);
 
                 Toast.makeText(getApplicationContext(), "Seach for:  "+query, Toast.LENGTH_LONG).show();
                 return false;
@@ -89,7 +88,7 @@ public final class GuitarActivity extends MainActivity {
         searchView.setOnCloseListener(new SearchView.OnCloseListener() {
             @Override
             public boolean onClose() {
-                mSongListFragment.reload(null);
+                mGuitarFragment.getSelected().reload(null);
                 return false;
             }
         });

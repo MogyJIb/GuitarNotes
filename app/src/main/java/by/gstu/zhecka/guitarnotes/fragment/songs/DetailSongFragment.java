@@ -1,6 +1,5 @@
-package by.gstu.zhecka.guitarnotes.fragment;
+package by.gstu.zhecka.guitarnotes.fragment.songs;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -10,9 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import by.gstu.zhecka.guitarnotes.R;
+import by.gstu.zhecka.guitarnotes.fragment.DeleteDialogFragment;
 import by.gstu.zhecka.guitarnotes.model.Song;
-
-import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.SONG_TAG;
 
 
 /**
@@ -50,7 +48,7 @@ public class DetailSongFragment extends AbstractDetailSongFragment {
             @Override
             public void onClick(View view) {
                 getFragmentManager().beginTransaction()
-                        .replace(R.id.main_activity_container,EditSongFragment.newInstance(mSong))
+                        .replace(R.id.main_activity_container, EditSongFragment.newInstance(mSong))
                         .addToBackStack(null)
                         .commit();
             }

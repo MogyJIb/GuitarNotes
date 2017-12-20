@@ -23,6 +23,8 @@ public final class SongContract {
 
     public static final String PATH_ACCOUNTS = "accounts";
 
+    public static final String PATH_AUTHORS = "authors";
+
     public static final String SELECTION_ARGS = "selectionArgs";
     public static final String SELECTION = "selection";
 
@@ -41,7 +43,7 @@ public final class SongContract {
         public static final String TABLE_NAME = "songs";
         public static final String COLUMN_UUID = "uuid";
         public static final String COLUMN_NAME = "name";
-        public static final String COLUMN_AUTHOR = "author";
+        public static final String COLUMN_AUTHOR_ID = "author_id";
         public static final String COLUMN_TEXT = "text";
         public static final String COLUMN_DETAIL = "detail";
 
@@ -54,13 +56,13 @@ public final class SongContract {
         public static final String[] MAIN_SONGS_PROJECTION = {
                 COLUMN_UUID,
                 COLUMN_NAME,
-                COLUMN_AUTHOR
+                COLUMN_AUTHOR_ID
         };
 
         public static final String[] DETAIL_SONGS_PROJECTION = {
                 COLUMN_UUID,
                 COLUMN_NAME,
-                COLUMN_AUTHOR,
+                COLUMN_AUTHOR_ID,
                 COLUMN_TEXT,
                 COLUMN_DETAIL
         };
@@ -77,7 +79,8 @@ public final class SongContract {
         public static final String SORT_ODER_BY_NAME = "name";
         public static final String SORT_ODER_BY_AUTHOR = "author";
 
-        public static final String SELECTION_NAME_AND_AUTHOR = COLUMN_NAME + " LIKE ? OR "+COLUMN_AUTHOR+" LIKE ? ";
+        public static final String SELECTION_NAME = COLUMN_NAME + " LIKE ? ";
+        public static final String SELECTION_AUTHOR = COLUMN_AUTHOR_ID + " LIKE ? ";
         public static final String SELECTION_UUID = COLUMN_UUID + "=?";
 
         public static final String SONG_TAG = "song";
@@ -106,6 +109,53 @@ public final class SongContract {
          - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
          */
+    }
+
+    /* TaskEntry is an inner class that defines the contents of the task table */
+    public static final class AuthorEntry
+            implements BaseColumns {
+
+        /* TaskEntry content URI = base content URI + path */
+        public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon()
+                .appendPath(PATH_AUTHORS)
+                .build();
+
+
+        /* Task table and column names */
+        public static final String TABLE_NAME = "authors";
+        public static final String COLUMN_UUID = "uuid";
+        public static final String COLUMN_NAME = "name";
+        public static final String COLUMN_DEBUT_DATE = "debutdate";
+        public static final String COLUMN_COUNTRY = "country";
+        public static final String COLUMN_GROUP_MEMBERS = "group_members";
+
+
+        /* The columns of data that we are interested in displaying within our MainActivity's list of
+    weather data. */
+        public static final String[] MAIN_AUTHORS_PROJECTION = {
+                COLUMN_UUID,
+                COLUMN_NAME,
+                COLUMN_DEBUT_DATE,
+                COLUMN_COUNTRY,
+                COLUMN_GROUP_MEMBERS
+        };
+
+
+        /* We store the indices of the values in the array of Strings above to more quickly be able to
+        access the data from our query. If the order of the Strings above changes, these indices
+        must be adjusted to match the order of the Strings. */
+        public static final int INDEX_AUTHOR_UUID = 0;
+        public static final int INDEX_AUTHOR_NAME = 1;
+        public static final int INDEX_AUTHOR_DEBUT_DATE = 2;
+        public static final int INDEX_AUTHOR_COUNTRY = 3;
+        public static final int INDEX_AUTHOR_GROUP_MEMBERS = 4;
+
+        public static final String SORT_ODER_BY_NAME = "name";
+
+        public static final String SELECTION_NAME = COLUMN_NAME + " LIKE ? ";
+        public static final String SELECTION_UUID = COLUMN_UUID + "=?";
+
+        public static final String UUID_TAG = "uuid";
     }
 
     /* TaskEntry is an inner class that defines the contents of the task table */
