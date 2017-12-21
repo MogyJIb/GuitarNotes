@@ -3,6 +3,7 @@ package by.gstu.zhecka.guitarnotes.fragment;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
@@ -12,18 +13,20 @@ import java.util.UUID;
 
 import by.gstu.zhecka.guitarnotes.R;
 
-import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.CONTENT_URI;
 import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.SELECTION_UUID;
 import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.UUID_TAG;
+import static by.gstu.zhecka.guitarnotes.database.SongContract.URI_TAG;
 
 
 public class DeleteDialogFragment extends DialogFragment implements DialogInterface.OnClickListener{
 
-    private UUID mSongId;
+    private UUID mId;
+    private Uri contentUri;
 
-    public static DeleteDialogFragment newInstance(UUID songId){
+    public static DeleteDialogFragment newInstance(UUID Id,Uri contentUri){
         Bundle args = new Bundle();
-        args.putSerializable(UUID_TAG,songId);
+        args.putSerializable(UUID_TAG,Id);
+        args.putParcelable(URI_TAG,contentUri);
         DeleteDialogFragment fragment = new DeleteDialogFragment();
         fragment.setArguments(args);
         return fragment;
@@ -35,7 +38,8 @@ public class DeleteDialogFragment extends DialogFragment implements DialogInterf
         Bundle bundle = getArguments();
 
         if(bundle!=null) {
-            mSongId = (UUID) getArguments().getSerializable(UUID_TAG);
+            mId = (UUID) getArguments().getSerializable(UUID_TAG);
+            contentUri= getArguments().getParcelable(URI_TAG);
         }
 
     }
@@ -65,11 +69,11 @@ public class DeleteDialogFragment extends DialogFragment implements DialogInterf
     }
 
     private void onClickDeleteFabButton() {
-        if(mSongId==null)
+        if(mId==null)
             return;
 
-        String[] selectionArg = {mSongId.toString()};
-        getActivity().getContentResolver().delete(CONTENT_URI, SELECTION_UUID,selectionArg);
+        String[] selectionArg = {mId.toString()};
+        getActivity().getContentResolver().delete(contentUri, SELECTION_UUID,selectionArg);
 
         /* This display a toast of number item which selected */
         Toast.makeText(getActivity(), "The item was delete successfully!", Toast.LENGTH_LONG).show();

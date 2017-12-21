@@ -30,6 +30,9 @@
         <activity
             android:name=".activity.LogInActivity"
             android:parentActivityName=".activity.GuitarActivity"/>
+        <activity
+            android:name=".activity.DetailAuthorActivity"
+            android:parentActivityName=".activity.GuitarActivity"/>
 
         <activity android:name=".activity.MainActivity"
                   android:windowSoftInputMode="adjustPan"/>

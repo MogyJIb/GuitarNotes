@@ -5,7 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import by.gstu.zhecka.guitarnotes.fragment.AuthorListFragment;
+import by.gstu.zhecka.guitarnotes.fragment.authors.AuthorListFragment;
 import by.gstu.zhecka.guitarnotes.fragment.songs.SongListFragment;
 
 /**

@@ -1,5 +1,6 @@
-package by.gstu.zhecka.guitarnotes.fragment;
+package by.gstu.zhecka.guitarnotes.fragment.authors;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import by.gstu.zhecka.guitarnotes.R;
+import by.gstu.zhecka.guitarnotes.activity.DetailAuthorActivity;
 import by.gstu.zhecka.guitarnotes.database.SongContract;
 import by.gstu.zhecka.guitarnotes.interfaces.SeachCursorLoader;
 import by.gstu.zhecka.guitarnotes.utils.FakeDataUtils;
@@ -70,8 +72,8 @@ public final class AuthorListFragment extends Fragment implements  LoaderManager
         mAddSongActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*Intent intent = new Intent(getContext(), DetailSongActivity.class);
-                getContext().startActivity(intent);*/
+                Intent intent = new Intent(getContext(), DetailAuthorActivity.class);
+                getContext().startActivity(intent);
             }
         });
 

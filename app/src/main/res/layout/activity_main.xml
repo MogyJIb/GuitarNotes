@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                                              xmlns:app="http://schemas.android.com/apk/res-auto"
                                              android:layout_width="match_parent"
-                                             android:layout_height="match_parent"
-                                             android:isScrollContainer="true"
+                                             android:layout_height="wrap_content"
     >
 
     <android.support.v7.widget.Toolbar
@@ -12,23 +12,26 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@color/md_black_1000"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+
         app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"/>
+
 
     <FrameLayout
         android:id="@+id/main_activity_container"
-        android:layout_width="0dp"
-        android:layout_height="511dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/toolbar"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        app:layout_constraintVertical_bias="0.0">
+        android:layout_below="@+id/toolbar">
 
     </FrameLayout>
-</android.support.constraint.ConstraintLayout>
+
+    <FrameLayout
+        android:id="@+id/added_activity_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/main_activity_container">
+
+    </FrameLayout>
+</RelativeLayout>

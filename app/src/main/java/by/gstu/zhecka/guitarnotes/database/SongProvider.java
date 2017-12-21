@@ -252,6 +252,9 @@ public final class SongProvider
             case CODE_ACCOUNTS:
                 tableName = SongContract.AccountEntry.TABLE_NAME;
                 break;
+            case CODE_AUTHORS:
+                tableName = SongContract.AuthorEntry.TABLE_NAME;
+                break;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
         }

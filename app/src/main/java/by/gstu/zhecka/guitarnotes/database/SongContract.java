@@ -9,6 +9,7 @@ import android.provider.BaseColumns;
 
 public final class SongContract {
 
+    public static final String URI_TAG = "uri";
     /* The authority, which is how your code knows which Content Provider to access */
     public static final String CONTENT_AUTHORITY = "by.gstu.zhecka.guitarnotes";
 
@@ -156,6 +157,7 @@ public final class SongContract {
         public static final String SELECTION_UUID = COLUMN_UUID + "=?";
 
         public static final String UUID_TAG = "uuid";
+        public static final String AUTHOR_TAG = "author";
     }
 
     /* TaskEntry is an inner class that defines the contents of the task table */

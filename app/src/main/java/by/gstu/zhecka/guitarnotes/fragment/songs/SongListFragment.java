@@ -20,9 +20,11 @@ import by.gstu.zhecka.guitarnotes.R;
 import by.gstu.zhecka.guitarnotes.activity.DetailSongActivity;
 import by.gstu.zhecka.guitarnotes.database.SongContract;
 import by.gstu.zhecka.guitarnotes.interfaces.SeachCursorLoader;
+import by.gstu.zhecka.guitarnotes.model.Author;
 import by.gstu.zhecka.guitarnotes.utils.FakeDataUtils;
 import by.gstu.zhecka.guitarnotes.utils.adapters.SongAdapter;
 
+import static by.gstu.zhecka.guitarnotes.database.SongContract.AuthorEntry.AUTHOR_TAG;
 import static by.gstu.zhecka.guitarnotes.database.SongContract.SELECTION;
 import static by.gstu.zhecka.guitarnotes.database.SongContract.SELECTION_ARGS;
 import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.MAIN_SONGS_PROJECTION;
@@ -36,7 +38,7 @@ public final class SongListFragment extends Fragment implements  LoaderManager.L
 
     /* This ID will be used to identify the Loader responsible for loading our songs. */
     private static final int SONGS_LOADER_ID = 44;
-
+    private Author mAuthor;
 
     /* RecyclerView to displaying our songs and adapter to it for linking songs with the Views*/
     private RecyclerView mRecyclerView;
@@ -45,11 +47,24 @@ public final class SongListFragment extends Fragment implements  LoaderManager.L
 
     private FloatingActionButton mAddSongActionButton;
 
+    public static SongListFragment newInstance(Author author) {
+        SongListFragment fragment = new SongListFragment();
+        Bundle args = new Bundle();
+        args.putSerializable(AUTHOR_TAG,author);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
+        Bundle bundle = getArguments();
+        if(bundle!=null) {
+            mAuthor = (Author) getArguments().getSerializable(AUTHOR_TAG);
+        }
 
     }
 

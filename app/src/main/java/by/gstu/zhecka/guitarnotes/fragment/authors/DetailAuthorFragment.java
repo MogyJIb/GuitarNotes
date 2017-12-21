@@ -1,4 +1,4 @@
-package by.gstu.zhecka.guitarnotes.fragment.songs;
+package by.gstu.zhecka.guitarnotes.fragment.authors;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,20 +11,16 @@ import android.view.ViewGroup;
 import by.gstu.zhecka.guitarnotes.R;
 import by.gstu.zhecka.guitarnotes.database.SongContract;
 import by.gstu.zhecka.guitarnotes.fragment.DeleteDialogFragment;
-import by.gstu.zhecka.guitarnotes.model.Song;
+import by.gstu.zhecka.guitarnotes.model.Author;
 
 
-/**
- * Created by Zhecka on 8/25/2017.
- */
-
-public class DetailSongFragment extends AbstractDetailSongFragment {
+public class DetailAuthorFragment extends AbstractDetailAuthorFragment {
     private FloatingActionButton mDeleteSongActionButton;
     private FloatingActionButton mEditSongActionButton;
 
-    public static DetailSongFragment newInstance(Song song) {
-        DetailSongFragment fragment = new DetailSongFragment();
-        setFragmentArgs(fragment,song,false);
+    public static DetailAuthorFragment newInstance(Author author) {
+        DetailAuthorFragment fragment = new DetailAuthorFragment();
+        setFragmentArgs(fragment,author,false);
         return fragment;
     }
 
@@ -37,8 +33,8 @@ public class DetailSongFragment extends AbstractDetailSongFragment {
         mDeleteSongActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(mSong!=null) {
-                    DialogFragment dialog = DeleteDialogFragment.newInstance(mSong.getId(), SongContract.SongEntry.CONTENT_URI);
+                if(mAuthor!=null) {
+                    DialogFragment dialog = DeleteDialogFragment.newInstance(mAuthor.getId(), SongContract.AuthorEntry.CONTENT_URI);
                     dialog.show(getFragmentManager(),"DeleteDialogFragment");
                 }
             }
@@ -49,7 +45,7 @@ public class DetailSongFragment extends AbstractDetailSongFragment {
             @Override
             public void onClick(View view) {
                 getFragmentManager().beginTransaction()
-                        .replace(R.id.main_activity_container, EditSongFragment.newInstance(mSong))
+                        .replace(R.id.main_activity_container, EditAuthorFragment.newInstance(mAuthor))
                         .addToBackStack(null)
                         .commit();
             }
@@ -60,6 +56,6 @@ public class DetailSongFragment extends AbstractDetailSongFragment {
 
     @Override
     public int getLayoutID() {
-        return R.layout.fragment_detail_song;
+        return R.layout.fragment_detail_author;
     }
 }

@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:hint="TextView recycler view"
         android:padding="8dp"
-        android:textSize="18sp"
+        android:textSize="16sp"
         />
 
 </LinearLayout>
