@@ -27,6 +27,7 @@ import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.DETAIL_
 import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.INDEX_SONG_AUTHOR;
 import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.INDEX_SONG_NAME;
 import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.INDEX_SONG_UUID;
+import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.SELECTION_NAME;
 import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.SELECTION_UUID;
 import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.SONG_TAG;
 
@@ -57,8 +58,14 @@ public class SongAdapter
 
         @Override
         public void bind(Cursor cursor) {
-            mTitleTextView.setText(cursor.getString(INDEX_SONG_NAME) +
-                    cursor.getString(INDEX_SONG_AUTHOR));
+            String uuid = cursor.getString(INDEX_SONG_AUTHOR);
+            String selection = SELECTION_NAME;
+            String[] selectionArgs =new String[]{uuid};
+            Cursor cursorAuthor = mContext.getContentResolver()
+                    .query(SongContract.AuthorEntry.CONTENT_URI, SongContract.AuthorEntry.MAIN_AUTHORS_PROJECTION, selection, selectionArgs, null);
+            cursorAuthor.moveToFirst();
+            mTitleTextView.setText(cursor.getString(INDEX_SONG_NAME) );
+
         }
 
         /* This gets called by the child views during a click. We fetch the ID of song that has been
@@ -68,7 +75,7 @@ public class SongAdapter
         public void onClick(View v) {
             int clickedPosition = getAdapterPosition();
             mCursor.moveToPosition(clickedPosition);
-            Toast.makeText(mContext, mCursor.getString(INDEX_SONG_NAME) +
+            Toast.makeText(mContext, mCursor.getString(INDEX_SONG_UUID) +
                     " clicked!", Toast.LENGTH_SHORT).show();
 
             Intent intent = new Intent(mContext, DetailSongActivity.class);
@@ -89,6 +96,8 @@ public class SongAdapter
             Cursor cursorSong = mContext.getContentResolver()
                     .query(CONTENT_URI, DETAIL_SONGS_PROJECTION, selection, selectionArgs, null);
             cursorSong.moveToFirst();
+
+            selection = SELECTION_NAME;
             String uuid = cursorSong.getString(INDEX_SONG_AUTHOR);
             selectionArgs =new String[]{uuid};
             Cursor cursorAuthor = mContext.getContentResolver()

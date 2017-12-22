@@ -28,6 +28,7 @@ import static by.gstu.zhecka.guitarnotes.database.SongContract.AuthorEntry.AUTHO
 import static by.gstu.zhecka.guitarnotes.database.SongContract.SELECTION;
 import static by.gstu.zhecka.guitarnotes.database.SongContract.SELECTION_ARGS;
 import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.MAIN_SONGS_PROJECTION;
+import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.SELECTION_NAME;
 import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry.SORT_ODER_BY_NAME;
 
 /**
@@ -86,13 +87,19 @@ public final class SongListFragment extends Fragment implements  LoaderManager.L
 
 
         mAddSongActionButton = (FloatingActionButton)view.findViewById(R.id.fb_add_new);
-        mAddSongActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getContext(), DetailSongActivity.class);
-                getContext().startActivity(intent);
-            }
-        });
+        if(mAuthor==null) {
+            mAddSongActionButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getContext(), DetailSongActivity.class);
+                    getContext().startActivity(intent);
+                }
+            });
+        }else {
+            mAddSongActionButton.setVisibility(View.INVISIBLE);
+        }
+
+
 
         /* Ensures a loader is initialized and active. If the loader doesn't already exist, one is
          created and (if the activity/fragment is currently started) starts the loader. Otherwise
@@ -114,6 +121,10 @@ public final class SongListFragment extends Fragment implements  LoaderManager.L
         if(args!=null) {
             searchString = args.getStringArray(SELECTION_ARGS);
             selectIt  = args.getString(SELECTION);
+        }
+        else if(mAuthor!=null){
+            searchString = new String[]{mAuthor.getName().toString()};
+            selectIt = SELECTION_NAME;
         }
 
         switch (loaderId) {

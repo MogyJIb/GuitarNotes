@@ -31,7 +31,7 @@ public class MySongConvertUtility {
         String text = cursorSong.getString(SongEntry.INDEX_SONG_TEXT);
         SongDetail songDetail = SongDetail.deserialize(cursorSong.getBlob(SongEntry.INDEX_SONG_DETAIL));
 
-        Song song = new Song(id,name,UUID.fromString(authorId),text,songDetail);
+        Song song = new Song(id,name,authorId,text,songDetail);
         Author author = getAuthorFromCursor(cursorAuthor);
         song.setAuthor(author);
         return song;

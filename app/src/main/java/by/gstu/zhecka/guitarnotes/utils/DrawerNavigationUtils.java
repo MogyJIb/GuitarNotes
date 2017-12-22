@@ -169,6 +169,10 @@ public class DrawerNavigationUtils {
             return;
 
         drawerResult.removeItem(0);
+        drawerResult.addItem(
+                new PrimaryDrawerItem().withName("Favorite").withIdentifier(1001),0);
+        drawerResult.addItem(
+                new PrimaryDrawerItem().withName("Playlist").withIdentifier(1000),1);
         final IProfile profile = new ProfileDrawerItem().withName(account.getName()).withEmail(account.getLogin());
         headerResult.addProfiles(
                 profile,
@@ -185,6 +189,8 @@ public class DrawerNavigationUtils {
             return;
         drawerResult.resetDrawerContent();
         headerResult.clear();
+        drawerResult.removeItem(0);
+        drawerResult.removeItem(1);
         drawerResult.addItem( new PrimaryDrawerItem().withName("Login").withIdentifier(ACCOUNTS_LOGIN_ID),0);
     }
 

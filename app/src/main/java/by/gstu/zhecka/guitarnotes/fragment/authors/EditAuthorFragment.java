@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import by.gstu.zhecka.guitarnotes.R;
@@ -23,6 +24,7 @@ import static by.gstu.zhecka.guitarnotes.database.SongContract.AuthorEntry.SELEC
 public class EditAuthorFragment extends AbstractDetailAuthorFragment{
     private FloatingActionButton mSaveSongActionButton;
 
+    private TextView mAuthorSongs;
     public static EditAuthorFragment newInstance(Author author) {
         EditAuthorFragment fragment = new EditAuthorFragment();
         setFragmentArgs(fragment,author,true);
@@ -59,8 +61,8 @@ public class EditAuthorFragment extends AbstractDetailAuthorFragment{
                 }
             }
         });
-
-
+        mAuthorSongs = (TextView) view.findViewById(R.id.tv_author_songs);
+        mAuthorSongs.setVisibility(View.INVISIBLE);
         return view;
     }
 

@@ -7,7 +7,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 import static android.provider.BaseColumns._ID;
 import static by.gstu.zhecka.guitarnotes.database.SongContract.AccountEntry;
 import static by.gstu.zhecka.guitarnotes.database.SongContract.AuthorEntry;
+import static by.gstu.zhecka.guitarnotes.database.SongContract.PlaylistEntry;
 import static by.gstu.zhecka.guitarnotes.database.SongContract.SongEntry;
+import static by.gstu.zhecka.guitarnotes.database.SongContract.SongListEntry;
 
 /**
  * Created by Zhecka on 8/23/2017.
@@ -18,8 +20,19 @@ public final class SongDbHelper extends SQLiteOpenHelper {
 
     /* Name and version of our database */
     public static final String DATABASE_NAME = "songsDB.db";
-    private static final int DATABASE_VERSION = 13;
+    private static final int DATABASE_VERSION = 14;
 
+
+
+
+
+    /* Create string name for onUpgrade method (careful to follow SQL formatting rules) */
+    private static final String SQL_DELETE_SONG_ENTRIES =
+            "DROP TABLE IF EXISTS " + SongEntry.TABLE_NAME;
+    private static final String SQL_DELETE_ACCOUNT_ENTRIES =
+            "DROP TABLE IF EXISTS " + AccountEntry.TABLE_NAME;
+    private static final String SQL_DELETE_AUTHOR_ENTRIES =
+            "DROP TABLE IF EXISTS " + AuthorEntry.TABLE_NAME;
 
     /* Create tasks table (careful to follow SQL formatting rules) */
     private static final String SQL_CREATE_SONGS_TABLE =
@@ -51,14 +64,22 @@ public final class SongDbHelper extends SQLiteOpenHelper {
                     " CONSTRAINT " +_ID +" PRIMARY KEY ("+AuthorEntry.COLUMN_NAME+")"+
                     " UNIQUE (" +AuthorEntry.COLUMN_NAME+ ") ON CONFLICT REPLACE);"              ;
 
+    private static final String SQL_CREATE_SONG_LISTS_TABLE =
+            "CREATE TABLE " + SongListEntry.TABLE_NAME         + " ("                                   +
+                    SongListEntry.COLUMN_UUID     + " STRING NOT NULL , "                  +
+                    SongListEntry.COLUMN_PLAYLIST_ID   + " STRING NOT NULL, "                   +
+                    SongListEntry.COLUMN_SONG_ID   + " STRING NOT NULL, "                   +
+                    " CONSTRAINT " +_ID +" PRIMARY KEY ("+SongListEntry.COLUMN_UUID+")"+
+                    " UNIQUE (" +SongListEntry.COLUMN_UUID+ ") ON CONFLICT REPLACE);"              ;
 
-    /* Create string name for onUpgrade method (careful to follow SQL formatting rules) */
-    private static final String SQL_DELETE_SONG_ENTRIES =
-            "DROP TABLE IF EXISTS " + SongEntry.TABLE_NAME;
-    private static final String SQL_DELETE_ACCOUNT_ENTRIES =
-            "DROP TABLE IF EXISTS " + AccountEntry.TABLE_NAME;
-    private static final String SQL_DELETE_AUTHOR_ENTRIES =
-            "DROP TABLE IF EXISTS " + AuthorEntry.TABLE_NAME;
+    private static final String SQL_CREATE_PLAYLISTS_TABLE =
+            "CREATE TABLE " + PlaylistEntry.TABLE_NAME         + " ("                                   +
+                    PlaylistEntry.COLUMN_UUID     + " STRING NOT NULL , "                  +
+                    PlaylistEntry.COLUMN_NAME   + " STRING NOT NULL, "                   +
+                    PlaylistEntry.COLUMN_ACCOUNT_ID   + " STRING NOT NULL, "                   +
+                    " CONSTRAINT " +_ID +" PRIMARY KEY ("+PlaylistEntry.COLUMN_NAME+")"+
+                    " UNIQUE (" +PlaylistEntry.COLUMN_NAME+ ") ON CONFLICT REPLACE);"              ;
+
 
     /* Constructor for our class */
     public SongDbHelper(Context context) {

@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentManager;
 import by.gstu.zhecka.guitarnotes.R;
 import by.gstu.zhecka.guitarnotes.fragment.authors.DetailAuthorFragment;
 import by.gstu.zhecka.guitarnotes.fragment.authors.EditAuthorFragment;
+import by.gstu.zhecka.guitarnotes.fragment.songs.SongListFragment;
 import by.gstu.zhecka.guitarnotes.model.Author;
 
 import static by.gstu.zhecka.guitarnotes.database.SongContract.AuthorEntry.AUTHOR_TAG;
@@ -35,10 +36,9 @@ public class DetailAuthorActivity extends MainActivity {
                 fragment = (DetailAuthorFragment) DetailAuthorFragment.newInstance(mAuthor);
                 fm.beginTransaction().add(R.id.main_activity_container, fragment).commit();
 
-                /*Fragment fragment1 = fragment.().findFragmentById(R.id.fragment_song_list);
-                Bundle args = new Bundle();
-                args.putSerializable(AUTHOR_TAG,mAuthor);
-                fragment1.onCreate(args);*/
+                Fragment snListFr = fragment.getFragmentManager().findFragmentById(R.id.fragment_song_list);
+                snListFr = new SongListFragment();
+                fragment.getFragmentManager().beginTransaction().add(R.id.fragment_song_list,snListFr).commit();
 
             }
             else{

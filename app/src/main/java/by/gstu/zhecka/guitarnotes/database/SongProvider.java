@@ -23,6 +23,8 @@ public final class SongProvider
     public static final int CODE_SONGS = 100;
     public static final int CODE_ACCOUNTS = 101;
     public static final int CODE_AUTHORS = 102;
+    public static final int CODE_PLAYLISTS = 103;
+    public static final int CODE_SONGLISTS = 104;
 
 
     /* The URI Matcher used by this content provider. */
@@ -88,12 +90,18 @@ public final class SongProvider
         switch (sUriMatcher.match(uri)) {
             case CODE_SONGS:
                 tableName = SongContract.SongEntry.TABLE_NAME;
-               break;
+                break;
             case CODE_ACCOUNTS:
                 tableName = SongContract.AccountEntry.TABLE_NAME;
                 break;
             case CODE_AUTHORS:
                 tableName = SongContract.AuthorEntry.TABLE_NAME;
+                break;
+            case CODE_PLAYLISTS:
+                tableName = SongContract.PlaylistEntry.TABLE_NAME;
+                break;
+            case CODE_SONGLISTS:
+                tableName = SongContract.SongListEntry.TABLE_NAME;
                 break;
             default:
                 return super.bulkInsert(uri, values);
@@ -180,13 +188,9 @@ public final class SongProvider
     public Cursor query(@NonNull Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
 
         String tableName ="";
-
-
         /* Get access to underlying database (read-only for query) */
         final SQLiteDatabase db = mDbHelper.getReadableDatabase();
         Cursor retCursor;
-
-
         /* Query for the tasks directory and write a default case */
         switch (sUriMatcher.match(uri)){
             case CODE_SONGS:
@@ -232,16 +236,10 @@ public final class SongProvider
     public int delete(@NonNull Uri uri, String selection, String[] selectionArgs) {
 
         String tableName ="";
-
-
         /* Get access to the database and write URI matching code to recognize a single item */
         final SQLiteDatabase db = mDbHelper.getWritableDatabase();
-
-
         /* Keep track of the number of deleted tasks */
         int songsDeleted;
-
-
         /* [Hint] Use selections to delete an item by its row ID */
         switch (sUriMatcher.match(uri)) {
 
@@ -278,13 +276,9 @@ public final class SongProvider
     @Override
     public int update(@NonNull Uri uri, ContentValues values, String selection, String[] selectionArgs) {
         String tableName ="";
-
         final SQLiteDatabase db = mDbHelper.getWritableDatabase();
-
-
         /* Keep track of the number of deleted tasks */
         int songsUpdated;
-
 
         /* [Hint] Use selections to delete an item by its row ID */
         switch (sUriMatcher.match(uri)) {
@@ -302,16 +296,12 @@ public final class SongProvider
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
         }
-
          /* Use selections/selectionArgs to filter for this ID */
         songsUpdated = db.update(tableName,values,selection,selectionArgs);
         if (songsUpdated != 0) {
-
-
             /* A song was deleted, set notification */
             getContext().getContentResolver().notifyChange(uri, null);
         }
-
 
         /* Return the number of songs deleted */
         return songsUpdated;

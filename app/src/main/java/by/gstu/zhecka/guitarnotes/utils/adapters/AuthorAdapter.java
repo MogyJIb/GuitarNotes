@@ -58,7 +58,7 @@ public class AuthorAdapter extends  AbstractAdapter<AuthorAdapter.AuthorViewHold
         public void onClick(View view) {
             int clickedPosition = getAdapterPosition();
             mCursor.moveToPosition(clickedPosition);
-            Toast.makeText(mContext, mCursor.getString(INDEX_AUTHOR_NAME) +
+            Toast.makeText(mContext, mCursor.getString(INDEX_AUTHOR_UUID) +
                     " clicked!", Toast.LENGTH_SHORT).show();
 
             Intent intent = new Intent(mContext, DetailAuthorActivity.class);

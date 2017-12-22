@@ -103,18 +103,17 @@
             android:textStyle="bold"/>
     </android.support.design.widget.TextInputLayout>
 
-        <fragment
+        <FrameLayout
 
             android:id="@+id/fragment_song_list"
-            android:name="by.gstu.zhecka.guitarnotes.fragment.songs.SongListFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView"></fragment>
+            app:layout_constraintTop_toBottomOf="@+id/tv_author_songs"></FrameLayout>
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/tv_author_songs"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"

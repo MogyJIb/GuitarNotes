@@ -22,6 +22,10 @@ public final class SongContract {
     the "songs" directory */
     public static final String PATH_SONGS = "songs";
 
+    public static final String PATH_SONG_LISTS = "song_lists";
+
+    public static final String PATH_PLAYLISTS = "playlists";
+
     public static final String PATH_ACCOUNTS = "accounts";
 
     public static final String PATH_AUTHORS = "authors";
@@ -81,7 +85,7 @@ public final class SongContract {
         public static final String SORT_ODER_BY_AUTHOR = "author";
 
         public static final String SELECTION_NAME = COLUMN_NAME + " LIKE ? ";
-        public static final String SELECTION_AUTHOR = COLUMN_AUTHOR_ID + " LIKE ? ";
+        public static final String SELECTION_AUTHOR = COLUMN_AUTHOR_ID + "=?";
         public static final String SELECTION_UUID = COLUMN_UUID + "=?";
 
         public static final String SONG_TAG = "song";
@@ -171,7 +175,7 @@ public final class SongContract {
 
 
         /* Task table and column names */
-        public static final String TABLE_NAME = "ACCOUNT";
+        public static final String TABLE_NAME = "accounts";
         public static final String COLUMN_UUID = "uuid";
         public static final String COLUMN_NAME = "name";
         public static final String COLUMN_LOGIN = "login";
@@ -207,7 +211,91 @@ public final class SongContract {
         public static final String SELECTION_UUID = COLUMN_UUID + "=?";
 
 
-        public static final String ACCOUNT_TAG = "ACCOUNT";
+        public static final String ACCOUNT_TAG = "account";
+        public static final String UUID_TAG = "uuid";
+
+    }
+
+    /* TaskEntry is an inner class that defines the contents of the task table */
+    public static final class PlaylistEntry
+            implements BaseColumns {
+
+        /* TaskEntry content URI = base content URI + path */
+        public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon()
+                .appendPath(PATH_PLAYLISTS)
+                .build();
+
+
+        /* Task table and column names */
+        public static final String TABLE_NAME = "playlists";
+        public static final String COLUMN_UUID = "uuid";
+        public static final String COLUMN_NAME = "name";
+        public static final String COLUMN_ACCOUNT_ID = "account_id";
+
+
+        /* The columns of data that we are interested in displaying within our MainActivity's list of
+    weather data. */
+        public static final String[] MAIN_PLAYLIST_PROJECTION = {
+                COLUMN_UUID,
+                COLUMN_NAME,
+                COLUMN_ACCOUNT_ID
+        };
+
+        /* We store the indices of the values in the array of Strings above to more quickly be able to
+        access the data from our query. If the order of the Strings above changes, these indices
+        must be adjusted to match the order of the Strings. */
+        public static final int INDEX_PLAYLIST_UUID = 0;
+        public static final int INDEX_PLAYLIST_NAME = 1;
+        public static final int INDEX_PLAYLIST_ACCOUNT_ID = 2;
+
+        public static final String SORT_ODER_BY_UUID = "uuid";
+
+        public static final String SELECTION_UUID = COLUMN_UUID + "=?";
+
+
+        public static final String PLAYLIST_TAG = "playlist";
+        public static final String UUID_TAG = "uuid";
+
+    }
+    /* TaskEntry is an inner class that defines the contents of the task table */
+
+    public static final class SongListEntry
+            implements BaseColumns {
+
+        /* TaskEntry content URI = base content URI + path */
+        public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon()
+                .appendPath(PATH_SONG_LISTS)
+                .build();
+
+
+        /* Task table and column names */
+        public static final String TABLE_NAME = "song_lists";
+        public static final String COLUMN_UUID = "uuid";
+        public static final String COLUMN_PLAYLIST_ID = "playlist_id";
+        public static final String COLUMN_SONG_ID = "song_id";
+
+
+        /* The columns of data that we are interested in displaying within our MainActivity's list of
+    weather data. */
+        public static final String[] MAIN_SONG_LIST_PROJECTION = {
+                COLUMN_UUID,
+                COLUMN_PLAYLIST_ID,
+                COLUMN_SONG_ID
+        };
+
+        /* We store the indices of the values in the array of Strings above to more quickly be able to
+        access the data from our query. If the order of the Strings above changes, these indices
+        must be adjusted to match the order of the Strings. */
+        public static final int INDEX_SONG_LIST_UUID = 0;
+        public static final int INDEX_SONG_LIST_PLAYLIST_ID = 1;
+        public static final int INDEX_SONG_LIST_SONG_ID = 2;
+
+        public static final String SORT_ODER_BY_UUID = "uuid";
+
+        public static final String SELECTION_UUID = COLUMN_UUID + "=?";
+
+
+        public static final String SONG_LIST_TAG = "song_lists";
         public static final String UUID_TAG = "uuid";
 
     }

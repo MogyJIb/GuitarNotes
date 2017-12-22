@@ -51,6 +51,7 @@ public class DetailAuthorFragment extends AbstractDetailAuthorFragment {
             }
         });
 
+
         return view;
     }
 

@@ -10,7 +10,7 @@ import java.util.UUID;
 public final class Song implements Serializable {
 
     private UUID mId;
-    private UUID mAuthorId;
+    private String mAuthorId;
     private String mName;
     private Author mAuthor;
     private StringBuilder mText;
@@ -24,7 +24,7 @@ public final class Song implements Serializable {
         mSongDetail = new SongDetail();
     }
 
-    public Song(String name, UUID authorId, String text) {
+    public Song(String name, String authorId, String text) {
         this();
 
         mName = name;
@@ -32,7 +32,7 @@ public final class Song implements Serializable {
         mText.append(text);
     }
 
-    public Song(UUID id, String name, UUID authorId, String text,SongDetail songDetail) {
+    public Song(UUID id, String name, String authorId, String text,SongDetail songDetail) {
         mId = id;
         mName = name;
         mAuthorId = authorId;
@@ -102,11 +102,11 @@ public final class Song implements Serializable {
         return getAuthor()+" - "+getName()+"\n"+getText();
     }
 
-    public UUID getAuthorId() {
+    public String getAuthorId() {
         return mAuthorId;
     }
 
-    public void setAuthorId(UUID authorId) {
+    public void setAuthorId(String authorId) {
         mAuthorId = authorId;
     }
 }

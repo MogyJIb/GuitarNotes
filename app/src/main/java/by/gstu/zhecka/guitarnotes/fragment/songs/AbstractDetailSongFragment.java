@@ -9,8 +9,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.util.UUID;
-
 import by.gstu.zhecka.guitarnotes.R;
 import by.gstu.zhecka.guitarnotes.keyboard.StrumKeyboard;
 import by.gstu.zhecka.guitarnotes.model.Song;
@@ -107,7 +105,7 @@ public abstract class AbstractDetailSongFragment extends Fragment {
                 mSong = new Song();
 
             mSong.setName(mSongNameTv.getText().toString());
-            mSong.setAuthorId(UUID.fromString(mSongAuthorTv.getText().toString()));
+            mSong.setAuthorId(mSongAuthorTv.getText().toString());
             mSong.setText(mSongTextTv.getText().toString());
 
 
